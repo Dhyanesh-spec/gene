@@ -1,4 +1,7 @@
 extends CanvasLayer
+func _ready() -> void:
+	# This runs the exact second your menu boots up on screen
+	$MenuMusic.play()
 
 func _on_play_button_pressed() -> void:
 	# This exits the menu and opens your top-down grass map!

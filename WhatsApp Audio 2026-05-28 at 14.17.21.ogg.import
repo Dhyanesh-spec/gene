@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b3b1l37jofayp"
+path="res://.godot/imported/WhatsApp Audio 2026-05-28 at 14.17.21.ogg-048cd6a902d4b359cbb0e2818b78b83a.oggvorbisstr"
+
+[deps]
+
+source_file="res://WhatsApp Audio 2026-05-28 at 14.17.21.ogg"
+dest_files=["res://.godot/imported/WhatsApp Audio 2026-05-28 at 14.17.21.ogg-048cd6a902d4b359cbb0e2818b78b83a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

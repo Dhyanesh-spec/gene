@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cp2mtd2p3c14t" path="res://WhatsApp Image 2026-05-28 at 13.46.33.jpeg" id="1_lti8b"]
 [ext_resource type="Script" uid="uid://c53xtbowk1471" path="res://menu.gd" id="1_mae5d"]
 [ext_resource type="FontFile" uid="uid://bldb38b7ilmce" path="res://VT323-Regular.ttf" id="3_4hy44"]
+[ext_resource type="AudioStream" uid="uid://b3b1l37jofayp" path="res://WhatsApp Audio 2026-05-28 at 14.17.21.ogg" id="4_4hy44"]
 
 [sub_resource type="FontVariation" id="FontVariation_ytr4m"]
 base_font = ExtResource("3_4hy44")
@@ -61,6 +62,9 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_4hy44")
 theme_override_font_sizes/font_size = 56
 text = "Credits"
+
+[node name="MenuMusic" type="AudioStreamPlayer2D" parent="." unique_id=2123360237]
+stream = ExtResource("4_4hy44")
 
 [connection signal="pressed" from="MenuUI/CenterContainer/ButtonContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MenuUI/CenterContainer/ButtonContainer/QuitButton" to="." method="_on_quit_button_pressed"]
