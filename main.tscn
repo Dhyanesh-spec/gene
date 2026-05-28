@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bfsyveoyf67g8"]
+
+[ext_resource type="Texture2D" uid="uid://cmq3ede6ky6ch" path="res://lucid-origin_Pixel_art_2D_grassland_habitat_bird’s-eye_top-down_view_orthographic_overhead_-0.jpg" id="1_ig7tw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h2yge"]
+radius = 29.15476
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1bvp3"]
+radius = 47.88528
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
+radius = 49.162994
+
+[node name="Node" type="Node" unique_id=1224915762]
+
+[node name="Main" type="Node2D" parent="." unique_id=1316835073]
+
+[node name="Background" type="CanvasLayer" parent="Main" unique_id=1055326615]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="Main/Background" unique_id=1701785068]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ig7tw")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Rock" type="StaticBody2D" parent="Main" unique_id=2031771213]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Rock" unique_id=1940183768]
+position = Vector2(879, 140)
+shape = SubResource("CircleShape2D_h2yge")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/Rock" unique_id=194866221]
+position = Vector2(370, 368)
+shape = SubResource("CircleShape2D_1bvp3")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Main/Rock" unique_id=1249369964]
+position = Vector2(336, 91)
+shape = SubResource("CircleShape2D_0xm2m")
