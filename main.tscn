@@ -1,43 +1,111 @@
 [gd_scene format=3 uid="uid://bfsyveoyf67g8"]
 
-[ext_resource type="Texture2D" uid="uid://cmq3ede6ky6ch" path="res://lucid-origin_Pixel_art_2D_grassland_habitat_bird’s-eye_top-down_view_orthographic_overhead_-0.jpg" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://dllv3syorrx8g" path="res://ChatGPT Image May 31, 2026, 12_47_55 PM.png" id="1_ig7tw"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_h2yge"]
-radius = 29.15476
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1bvp3"]
-radius = 47.88528
+[sub_resource type="CircleShape2D" id="CircleShape2D_ig7tw"]
+radius = 19.026299
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
-radius = 49.162994
+radius = 15.0
 
-[node name="Node" type="Node" unique_id=1224915762]
+[sub_resource type="CircleShape2D" id="CircleShape2D_h2yge"]
+radius = 21.954498
 
-[node name="Main" type="Node2D" parent="." unique_id=1316835073]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(10, 16)
 
-[node name="Background" type="CanvasLayer" parent="Main" unique_id=1055326615]
-layer = -1
+[sub_resource type="CircleShape2D" id="CircleShape2D_lquwl"]
+radius = 5.0
 
-[node name="TextureRect" type="TextureRect" parent="Main/Background" unique_id=1701785068]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="CircleShape2D" id="CircleShape2D_1bvp3"]
+radius = 36.013885
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7mycd"]
+radius = 33.06055
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_272bh"]
+radius = 15.0
+
+[node name="Node" type="Node2D" unique_id=1993528689]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1320537403]
+position = Vector2(576.666, 325)
+scale = Vector2(0.6885957, 0.688)
 texture = ExtResource("1_ig7tw")
-expand_mode = 1
-stretch_mode = 6
 
-[node name="Rock" type="StaticBody2D" parent="Main" unique_id=2031771213]
+[node name="Map Colliders" type="StaticBody2D" parent="." unique_id=1200638048]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Rock" unique_id=1940183768]
-position = Vector2(879, 140)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Map Colliders" unique_id=1906395026]
+polygon = PackedVector2Array(951, 0, 951, 15, 950, 33, 955, 36, 958, 49, 953, 55, 949, 68, 934, 75, 930, 92, 935, 103, 949, 116, 967, 126, 976, 144, 989, 157, 1015, 156, 1014, 153, 1009, 158, 1025, 158, 1038, 153, 1050, 147, 1061, 142, 1067, 133, 1070, 124, 1083, 123, 1096, 120, 1106, 113, 1110, 102, 1115, 92, 1121, 83, 1127, 81, 1132, 69, 1130, 58, 1131, 44, 1130, 31, 1122, 25, 1115, 19, 1103, 14, 1093, 7, 1092, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map Colliders" unique_id=1044388818]
+position = Vector2(579, 326)
+shape = SubResource("CircleShape2D_ig7tw")
+
+[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Map Colliders" unique_id=215291840]
+position = Vector2(112.380775, 446.17825)
+scale = Vector2(1.0048077, 1.0072464)
+polygon = PackedVector2Array(-11, -30, 1, -59, 16, -66, 38, -59, 55, -37, 59, -24, 71, -17, 82, -4, 77, 10, 64, 22, 45, 47, 22, 62, -11, 59, -17, 67, -27, 72, -40, 70, -49, 61, -47, 50, -41, 43, -49, 39, -62, 34, -73, 19, -74, 4, -69, -6, -63, -22, -48, -42, -35, -45, -14, -31)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Map Colliders" unique_id=791576048]
+position = Vector2(-1, 3)
+polygon = PackedVector2Array(3, 364, 22, 359, 33, 337, 52, 323, 70, 321, 75, 328, 83, 333, 90, 330, 91, 323, 97, 321, 104, 321, 111, 313, 114, 307, 114, 303, 119, 301, 123, 293, 119, 288, 118, 281, 107, 263, 103, 262, 101, 253, 97, 249, 110, 236, 121, 221, 127, 206, 120, 189, 110, 171, 97, 160, 80, 148, 69, 155, 65, 164, 55, 177, 47, 195, 39, 209, 37, 222, 39, 232, 30, 241, 24, 241, 12, 230, 3, 225)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Map Colliders" unique_id=1920009082]
+position = Vector2(248, 308)
+shape = SubResource("CircleShape2D_0xm2m")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Map Colliders" unique_id=1559009338]
+position = Vector2(143, 183)
 shape = SubResource("CircleShape2D_h2yge")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/Rock" unique_id=194866221]
-position = Vector2(370, 368)
+[node name="CollisionShape2D5" type="CollisionPolygon2D" parent="Map Colliders" unique_id=937532678]
+position = Vector2(401, 539)
+polygon = PackedVector2Array(-12, -6, -8, -17, -1, -22, 7, -22, 14, -16, 19, -8, 19, -1, 18, 5, 14, 11, 11, 15, 4, 16, 1, 20, -3, 17, -8, 18, -13, 13, -17, 13, -20, 5, -18, -3, -13, -5)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Map Colliders" unique_id=1939048992]
+polygon = PackedVector2Array(350, 508, 351, 503, 357, 498, 363, 499, 368, 500, 371, 504, 376, 509, 379, 516, 375, 523, 367, 528, 356, 527, 350, 524, 348, 518, 348, 512)
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Map Colliders" unique_id=1292280798]
+position = Vector2(386, 507)
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Map Colliders" unique_id=2075625331]
+position = Vector2(396, 512)
+shape = SubResource("CircleShape2D_lquwl")
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Map Colliders" unique_id=1643100199]
+position = Vector2(1, 0)
+polygon = PackedVector2Array(517, 646, 523, 624, 534, 608, 544, 602, 558, 601, 572, 608, 580, 619, 589, 612, 596, 607, 606, 603, 618, 601, 624, 595, 627, 584, 632, 574, 645, 564, 658, 565, 662, 572, 670, 580, 676, 589, 685, 595, 698, 593, 709, 592, 712, 576, 715, 565, 719, 555, 724, 544, 735, 536, 750, 541, 761, 544, 772, 553, 777, 567, 787, 572, 798, 582, 808, 571, 816, 565, 824, 566, 837, 564, 848, 570, 858, 584, 868, 595, 871, 608, 876, 625, 871, 635, 865, 645, 860, 647, 824, 648, 758, 650)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Map Colliders" unique_id=1107654150]
+polygon = PackedVector2Array(304, 136, 303, 129, 307, 126, 308, 121, 315, 115, 317, 110, 314, 109, 317, 104, 321, 99, 326, 96, 334, 95, 341, 92, 347, 95, 351, 98, 354, 103, 357, 100, 359, 103, 366, 108, 366, 115, 367, 118, 373, 123, 375, 125, 375, 131, 380, 135, 381, 142, 377, 148, 378, 152, 374, 157, 372, 160, 366, 168, 360, 170, 353, 172, 351, 177, 344, 179, 333, 180, 333, 170, 326, 170, 318, 170, 313, 166, 308, 161, 305, 152, 303, 148, 300, 143)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="Map Colliders" unique_id=78260526]
+position = Vector2(-1.5884323, -1.9073486e-06)
+scale = Vector2(1.0083956, 0.99999994)
+polygon = PackedVector2Array(22, -1, 21, 12, 22, 19, 15, 21, 17, 23, 17, 26, 16, 30, 18, 34, 19, 34, 19, 38, 25, 42, 22, 47, 23, 50, 29, 51, 27, 53, 29, 56, 30, 58, 34, 59, 37, 60, 40, 62, 43, 64, 48, 64, 51, 66, 49, 68, 48, 72, 52, 71, 55, 72, 56, 74, 58, 76, 60, 74, 64, 73, 67, 72, 68, 68, 74, 71, 78, 76, 86, 78, 91, 77, 98, 75, 103, 77, 104, 72, 106, 69, 108, 73, 111, 70, 114, 72, 117, 68, 119, 70, 123, 70, 127, 71, 128, 65, 134, 68, 140, 67, 141, 61, 146, 60, 146, 55, 148, 51, 146, 47, 144, 41, 147, 35, 149, 31, 145, 28, 146, 23, 143, 22, 143, 16, 140, 11, 134, 10, 134, 6, 131, 1)
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Map Colliders" unique_id=115227273]
+position = Vector2(163, 264)
 shape = SubResource("CircleShape2D_1bvp3")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Main/Rock" unique_id=1249369964]
-position = Vector2(336, 91)
-shape = SubResource("CircleShape2D_0xm2m")
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="Map Colliders" unique_id=660588671]
+polygon = PackedVector2Array(1, 200, 6, 196, 8, 198, 11, 195, 15, 196, 19, 197, 19, 193, 22, 192, 25, 189, 26, 186, 28, 184, 29, 180, 29, 175, 25, 174, 28, 169, 30, 170, 32, 171, 33, 168, 41, 162, 45, 155, 46, 148, 49, 144, 48, 141, 48, 135, 44, 130, 41, 127, 44, 125, 42, 121, 38, 119, 36, 117, 37, 115, 35, 109, 28, 107, 28, 102, 25, 99, 23, 101, 20, 101, 18, 97, 15, 96, 13, 99, 10, 94, 6, 98, 1, 97)
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="Map Colliders" unique_id=73168757]
+polygon = PackedVector2Array(1, 562, 21, 563, 27, 569, 51, 554, 64, 558, 76, 566, 83, 574, 79, 577, 86, 582, 88, 580, 91, 584, 91, 588, 94, 591, 93, 596, 98, 601, 99, 605, 101, 615, 101, 620, 97, 625, 99, 633, 92, 633, 93, 639, 90, 642, 81, 648, 1, 650)
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Map Colliders" unique_id=2106493630]
+polygon = PackedVector2Array(1, 457, 8, 461, 12, 464, 10, 469, 15, 469, 20, 472, 17, 475, 19, 478, 27, 480, 26, 485, 30, 490, 30, 497, 34, 497, 34, 505, 36, 512, 35, 520, 32, 524, 29, 530, 25, 539, 19, 550, 14, 556, 0, 562)
+
+[node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="Map Colliders" unique_id=133204763]
+polygon = PackedVector2Array(168, 621, 155, 628, 154, 633, 146, 639, 140, 635, 139, 628, 135, 626, 132, 629, 126, 625, 120, 621, 115, 614, 109, 604, 112, 596, 114, 587, 119, 578, 122, 566, 127, 562, 133, 553, 136, 557, 147, 553, 156, 559, 164, 562, 176, 560, 185, 554, 181, 542, 184, 540, 184, 534, 187, 528, 189, 523, 193, 514, 199, 506, 206, 499, 210, 498, 222, 497, 230, 499, 236, 507, 240, 510, 245, 516, 248, 521, 254, 525, 261, 526, 268, 527, 274, 524, 277, 531, 279, 533, 283, 533, 286, 536, 289, 536, 291, 542, 290, 544, 297, 547, 300, 554, 302, 559, 304, 568, 307, 582, 302, 586, 301, 591, 300, 595, 298, 597, 296, 599, 292, 602, 287, 606, 279, 608, 280, 612, 277, 615, 261, 615, 260, 606, 248, 606, 239, 596, 235, 587, 230, 580, 231, 591, 233, 603, 229, 611, 219, 614, 220, 617, 211, 618, 202, 620, 210, 629, 220, 638, 224, 647, 153, 649)
+
+[node name="CollisionPolygon2D11" type="CollisionShape2D" parent="Map Colliders" unique_id=678578113]
+position = Vector2(370, 620)
+shape = SubResource("CircleShape2D_7mycd")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Map Colliders" unique_id=1247219877]
+position = Vector2(1115, 164)
+shape = SubResource("CircleShape2D_272bh")

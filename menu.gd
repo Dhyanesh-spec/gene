@@ -14,3 +14,4 @@ func _on_quit_button_pressed() -> void:
 func _on_credit_button_pressed() -> void:
 	# This prints a message to your debugger console at the bottom
 	print("Variant Zero - Developed by Shalom and Dhyanesh!")
+	
