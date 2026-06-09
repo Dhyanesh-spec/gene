@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://cni6o1bntj03i"]
+
+[ext_resource type="Script" uid="uid://cmqwjk8im5ip8" path="res://genecard.gd" id="1_icj37"]
+[ext_resource type="Texture2D" uid="uid://cq0rivqph2yk0" path="res://ChatGPT Image Jun 1, 2026, 12_42_46 PM.png" id="2_ds7aw"]
+[ext_resource type="Texture2D" uid="uid://cymtqlygsfkpu" path="res://ChatGPT Image May 29, 2026, 02_36_17 PM (1).png" id="2_xetmc"]
+[ext_resource type="FontFile" uid="uid://bldb38b7ilmce" path="res://VT323-Regular.ttf" id="3_jre5k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwixf"]
+
+[sub_resource type="FontVariation" id="FontVariation_lwixf"]
+resource_local_to_scene = true
+base_font = ExtResource("3_jre5k")
+
+[sub_resource type="FontVariation" id="FontVariation_e77w1"]
+base_font = ExtResource("3_jre5k")
+
+[node name="genecard" type="PanelContainer" unique_id=2078766026]
+custom_minimum_size = Vector2(200, 120)
+layout_direction = 1
+offset_left = -3.0
+offset_right = 207.0
+offset_bottom = 150.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_lwixf")
+script = ExtResource("1_icj37")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=458474600]
+layout_mode = 2
+texture = ExtResource("2_ds7aw")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect" unique_id=83409145]
+custom_minimum_size = Vector2(55, 55)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.20300001
+anchor_top = 0.089
+anchor_right = 0.55
+anchor_bottom = 0.90500003
+offset_left = 4.369999
+offset_top = 19.65
+offset_right = -13.5
+offset_bottom = 4.8309937
+texture = ExtResource("2_xetmc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="TextureRect" unique_id=1922691031]
+clip_contents = true
+layout_mode = 0
+offset_left = 119.0
+offset_top = 18.0
+offset_right = 202.0
+offset_bottom = 59.0
+theme_override_colors/font_color = Color(0.53171444, 0.9572676, 0.22483367, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.4392157, 0, 0)
+theme_override_colors/font_outline_color = Color(0.9843137, 0.9843137, 0.9843137, 1)
+theme_override_fonts/font = SubResource("FontVariation_lwixf")
+theme_override_font_sizes/font_size = 17
+text = "Digitigrade Locomotion"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="TextureRect" unique_id=1874766896]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.614
+anchor_top = 0.42700002
+anchor_right = 0.938
+anchor_bottom = 0.82000005
+offset_left = 0.05999756
+offset_top = -3.050003
+offset_right = 0.019989014
+theme_override_fonts/font = SubResource("FontVariation_e77w1")
+theme_override_font_sizes/font_size = 9
+text = "Elevated heel posture increases stride efficiency.
+
++15 Movement Speed"
+autowrap_mode = 3
