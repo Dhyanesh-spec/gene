@@ -194,3 +194,5 @@ func add_gene(trait_id):
 func _on_button_pressed() -> void:
 	print("BUTTON WORKS")
 	generate_creature()
+func _on_play_pressed() -> void:
+	get_tree().change_scene_to_file("res://main.tscn")

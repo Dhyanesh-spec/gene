@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ckmbk4dbba745" path="res://ChatGPT Image Jun 1, 2026, 06_01_34 PM.png" id="3_e2xd3"]
 [ext_resource type="Texture2D" uid="uid://byydqirtqy1y0" path="res://ChatGPT Image Jun 1, 2026, 11_22_24 AM.png" id="3_uw7jv"]
 [ext_resource type="FontFile" uid="uid://bldb38b7ilmce" path="res://VT323-Regular.ttf" id="4_dtsd6"]
+[ext_resource type="Texture2D" uid="uid://c5ua6pxrbnqgu" path="res://play.png" id="6_ecarl"]
 
 [node name="Lab" type="Control" unique_id=1756389838]
 layout_mode = 3
@@ -183,5 +184,21 @@ offset_bottom = -0.25601196
 expand_mode = 1
 stretch_mode = 5
 
+[node name="Play" type="TextureButton" parent="." unique_id=1180529946]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.721
+anchor_top = 0.84700006
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.40795898
+offset_top = 0.14398193
+offset_right = -23.0
+offset_bottom = -16.0
+texture_normal = ExtResource("6_ecarl")
+ignore_texture_size = true
+stretch_mode = 6
+
 [connection signal="pressed" from="Console/Button" to="." method="_on_button_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
