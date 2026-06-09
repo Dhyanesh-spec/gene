@@ -26,6 +26,45 @@ radius = 33.06055
 [sub_resource type="CircleShape2D" id="CircleShape2D_272bh"]
 radius = 15.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5vw27"]
+radius = 15.033297
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kek77"]
+radius = 18.601076
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4c57u"]
+radius = 31.112698
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_efxa6"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dg77c"]
+radius = 19.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ycdy4"]
+radius = 12.0415945
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w48qg"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vivmo"]
+radius = 12.0415945
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2cqfq"]
+radius = 14.035668
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yaehf"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_074og"]
+radius = 28.284271
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cegan"]
+radius = 12.0415945
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_82xsv"]
+radius = 12.0415945
+
 [node name="Node" type="Node2D" unique_id=1993528689]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1320537403]
@@ -109,3 +148,65 @@ shape = SubResource("CircleShape2D_7mycd")
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="Map Colliders" unique_id=1247219877]
 position = Vector2(1115, 164)
 shape = SubResource("CircleShape2D_272bh")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Map Colliders" unique_id=1795116700]
+position = Vector2(376, 411)
+shape = SubResource("CircleShape2D_5vw27")
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="Map Colliders" unique_id=807142939]
+position = Vector2(476, 272)
+shape = SubResource("CircleShape2D_kek77")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Map Colliders" unique_id=297826373]
+position = Vector2(706, 341)
+shape = SubResource("CircleShape2D_4c57u")
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="Map Colliders" unique_id=303375749]
+position = Vector2(913, 418)
+shape = SubResource("CircleShape2D_efxa6")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="Map Colliders" unique_id=1942502733]
+position = Vector2(796, 344)
+shape = SubResource("CircleShape2D_dg77c")
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="Map Colliders" unique_id=315719374]
+position = Vector2(403, 82)
+shape = SubResource("CircleShape2D_ycdy4")
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="Map Colliders" unique_id=2073452955]
+position = Vector2(201, 65)
+shape = SubResource("CircleShape2D_w48qg")
+
+[node name="CollisionShape2D17" type="CollisionShape2D" parent="Map Colliders" unique_id=853214474]
+position = Vector2(496, 72)
+shape = SubResource("CircleShape2D_vivmo")
+
+[node name="CollisionShape2D18" type="CollisionShape2D" parent="Map Colliders" unique_id=1148006637]
+position = Vector2(896, 605)
+shape = SubResource("CircleShape2D_2cqfq")
+
+[node name="CollisionShape2D19" type="CollisionShape2D" parent="Map Colliders" unique_id=254732715]
+position = Vector2(954, 403)
+shape = SubResource("CircleShape2D_yaehf")
+
+[node name="CollisionShape2D20" type="CollisionShape2D" parent="Map Colliders" unique_id=253822389]
+position = Vector2(551, 227)
+shape = SubResource("CircleShape2D_074og")
+
+[node name="CollisionShape2D21" type="CollisionShape2D" parent="Map Colliders" unique_id=314190199]
+position = Vector2(991, 530)
+shape = SubResource("CircleShape2D_cegan")
+
+[node name="CollisionShape2D22" type="CollisionShape2D" parent="Map Colliders" unique_id=396004056]
+position = Vector2(970, 463)
+shape = SubResource("CircleShape2D_82xsv")
+
+[node name="CollisionPolygon2D12" type="CollisionPolygon2D" parent="Map Colliders" unique_id=428548618]
+polygon = PackedVector2Array(518, 414, 517, 410, 522, 411, 524, 406, 526, 400, 528, 399, 532, 400, 536, 397, 539, 398, 543, 397, 545, 399, 547, 403, 550, 403, 553, 405, 555, 407, 554, 410, 555, 413, 555, 418, 555, 422, 556, 426, 557, 429, 555, 430, 555, 433, 555, 436, 552, 438, 555, 442, 552, 445, 547, 447, 541, 448, 536, 448, 530, 445, 526, 441, 525, 436, 526, 434, 523, 433, 521, 430, 516, 429, 516, 425, 517, 420, 518, 417)
+
+[node name="CollisionShape2D23" type="CollisionPolygon2D" parent="Map Colliders" unique_id=246287396]
+position = Vector2(1093, 189)
+polygon = PackedVector2Array(-222, -188, -223, -186, -226, -185, -226, -183, -227, -179, -233, -177, -233, -172, -231, -170, -235, -169, -235, -166, -236, -163, -238, -160, -236, -157, -234, -158, -232, -156, -233, -154, -232, -152, -229, -153, -226, -152, -223, -152, -220, -150, -221, -148, -220, -144, -218, -142, -217, -141, -214, -139, -211, -139, -207, -137, -205, -138, -202, -138, -200, -136, -194, -136, -190, -139, -189, -143, -184, -148, -186, -152, -182, -157, -185, -160, -184, -164, -188, -170, -191, -170, -197, -171, -198, -176, -199, -180, -200, -181, -200, -186, -201, -188, -201, -188)
+
+[node name="CollisionPolygon2D13" type="CollisionPolygon2D" parent="Map Colliders" unique_id=1777232662]
+polygon = PackedVector2Array(1095, 230, 1099, 227, 1104, 228, 1108, 219, 1113, 219, 1119, 214, 1125, 219, 1132, 218, 1142, 223, 1141, 227, 1144, 235, 1142, 240, 1143, 243, 1142, 245, 1140, 246, 1138, 250, 1136, 251, 1134, 254, 1128, 251, 1126, 256, 1122, 255, 1119, 263, 1116, 266, 1114, 270, 1110, 272, 1103, 272, 1095, 273, 1091, 267, 1087, 264, 1089, 261, 1086, 257, 1090, 255, 1086, 251, 1086, 248, 1085, 244, 1085, 241, 1087, 239, 1087, 236, 1089, 235, 1090, 231, 1093, 231, 1093, 231)
