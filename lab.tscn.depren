@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://vaxibajm0tjk"]
 
-[ext_resource type="Texture2D" uid="uid://bjjjmi8wnahbq" path="res://images/ChatGPT Image May 29, 2026, 01_14_50 PM.png" id="1_3e1xo"]
+[ext_resource type="Texture2D" uid="uid://bjjjmi8wnahbq" path="res://ChatGPT Image May 29, 2026, 01_14_50 PM.png" id="1_3e1xo"]
 [ext_resource type="Script" uid="uid://b56neui6gijb5" path="res://lab.gd" id="1_6kv01"]
-[ext_resource type="Texture2D" uid="uid://ckmbk4dbba745" path="res://images/ChatGPT Image Jun 1, 2026, 06_01_34 PM.png" id="3_e2xd3"]
-[ext_resource type="Texture2D" uid="uid://byydqirtqy1y0" path="res://images/ChatGPT Image Jun 1, 2026, 11_22_24 AM.png" id="3_uw7jv"]
-[ext_resource type="FontFile" uid="uid://bldb38b7ilmce" path="res://images/VT323-Regular.ttf" id="4_dtsd6"]
-[ext_resource type="Texture2D" uid="uid://c5ua6pxrbnqgu" path="res://images/play.png" id="6_ecarl"]
+[ext_resource type="Texture2D" uid="uid://ckmbk4dbba745" path="res://ChatGPT Image Jun 1, 2026, 06_01_34 PM.png" id="3_e2xd3"]
+[ext_resource type="Texture2D" uid="uid://byydqirtqy1y0" path="res://ChatGPT Image Jun 1, 2026, 11_22_24 AM.png" id="3_uw7jv"]
+[ext_resource type="FontFile" uid="uid://bldb38b7ilmce" path="res://VT323-Regular.ttf" id="4_dtsd6"]
+[ext_resource type="Texture2D" uid="uid://c5ua6pxrbnqgu" path="res://play.png" id="6_ecarl"]
 
 [node name="Lab" type="Control" unique_id=1756389838]
 layout_mode = 3

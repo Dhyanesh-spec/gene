@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bfsyveoyf67g8"]
 
 [ext_resource type="Texture2D" uid="uid://dllv3syorrx8g" path="res://ChatGPT Image May 31, 2026, 12_47_55 PM.png" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://c8b7nyxj2igfi" path="res://player.tscn" id="2_0xm2m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ig7tw"]
 radius = 19.026299
@@ -210,3 +211,8 @@ polygon = PackedVector2Array(-222, -188, -223, -186, -226, -185, -226, -183, -22
 
 [node name="CollisionPolygon2D13" type="CollisionPolygon2D" parent="Map Colliders" unique_id=1777232662]
 polygon = PackedVector2Array(1095, 230, 1099, 227, 1104, 228, 1108, 219, 1113, 219, 1119, 214, 1125, 219, 1132, 218, 1142, 223, 1141, 227, 1144, 235, 1142, 240, 1143, 243, 1142, 245, 1140, 246, 1138, 250, 1136, 251, 1134, 254, 1128, 251, 1126, 256, 1122, 255, 1119, 263, 1116, 266, 1114, 270, 1110, 272, 1103, 272, 1095, 273, 1091, 267, 1087, 264, 1089, 261, 1086, 257, 1090, 255, 1086, 251, 1086, 248, 1085, 244, 1085, 241, 1087, 239, 1087, 236, 1089, 235, 1090, 231, 1093, 231, 1093, 231)
+
+[node name="Player" parent="." unique_id=382676730 instance=ExtResource("2_0xm2m")]
+position = Vector2(500, 300)
+
+[editable path="Player"]

@@ -59,9 +59,16 @@ func _unhover():
 
 
 func _gui_input(event):
-
 	if event is InputEventMouseButton:
-
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-
+			
+			# Assign dynamic stats to GlobalData based on what trait this specific card holds
+			if trait_id == "fox_legs":
+				GlobalData.current_creature_speed = 450.0
+			elif trait_id == "camel_legs":
+				GlobalData.current_creature_speed = 200.0
+			else:
+				GlobalData.current_creature_speed = 300.0 # Default fallback
+			
+			# Emit your existing signal so the rest of your lab UI knows a selection happened
 			gene_selected.emit(trait_id)
