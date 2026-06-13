@@ -19,7 +19,7 @@ var TRAIT_DATABASE = {
             "African Wild Dog"
 		],
 
-		"image_prompt": "digitigrade hind legs, elongated metatarsals cursorial predator anatomy",
+		"image_prompt": "wolf-like digitigrade legs, raised heel posture, longer lower legs, agile predator limb structure",
 
 	},
 
@@ -42,7 +42,7 @@ var TRAIT_DATABASE = {
             "Alligator Snapping Turtle"
 		],
 
-		"image_prompt": "armored plating, osteoderms, reinforced hide, protective body segments",
+		"image_prompt": "armadillo-like armor plates along back and shoulders, segmented protective shell, thick armored skin",
 
 	},
 
@@ -64,7 +64,7 @@ var TRAIT_DATABASE = {
             "Albatross"
 		],
 
-		"image_prompt": "high-efficiency respiratory system, endurance adaptation, aerobic specialization",
+		"image_prompt": "bird-like expanded chest, larger ribcage, athletic body build, streamlined endurance runner anatomy",
 	},
 
 	"fat_reserve_manipulation": {
@@ -74,7 +74,7 @@ var TRAIT_DATABASE = {
 		"description": "Specialized fat utilization allow survival during periods of scarcity.",
 		"dna": "TTAAGCCG" ,
 		"gameplay": {
-			"arid_adaptability": 25,
+			"fat_storage": 25,
 			
 		},
 
@@ -85,7 +85,7 @@ var TRAIT_DATABASE = {
             "Elephant Seal"
 		],
 
-		"image_prompt": "energy storage adaptation, metabolic efficiency, resource conservation",
+		"image_prompt": "camel-like fat hump, thicker body reserves, enlarged back storage tissue",
 	},
 
 	"thermoregulatory_insulation": {
@@ -95,7 +95,7 @@ var TRAIT_DATABASE = {
 		"description": "Dense insulating layers improve survival in extreme cold.",
 		"dna": "CGGATATC" ,
 		"gameplay": {
-			"cold_resistance": 30,
+			"thermoregulation": 30,
 			
 		},
 
@@ -106,6 +106,6 @@ var TRAIT_DATABASE = {
             "Emperor Penguin"
 		],
 
-		"image_prompt": "insulating fur, thermal protection, cold-climate adaptation, arctic survival traits",
+		"image_prompt": "thick arctic fur coat, dense fluffy neck fur, winter-adapted insulation, cold climate mammal appearance",
 	}
 }
