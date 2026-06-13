@@ -222,6 +222,62 @@ func loaded_generated_creature():
 	creature_preview.texture = texture
 
 	print("Creature Loaded!")
+	generate_metadata()
+	load_metadata()
+func generate_metadata():
+
+	var trait_string = ""
+
+	for trait_id in selected_traits:
+
+		trait_string += \
+		TraitDatabase.TRAIT_DATABASE[trait_id]["name"] + ", "
+
+	var output = []
+
+	OS.execute(
+		"python",
+		[
+			"generate_metadata.py",
+			trait_string
+		],
+		output,
+		true
+	)
+
+	print(output)
+func load_metadata():
+
+	var file = FileAccess.open(
+		"metadata.json",
+		FileAccess.READ
+	)
+
+	if file == null:
+		print("metadata.json not found")
+		return
+
+	var text = file.get_as_text()
+
+	var data = JSON.parse_string(text)
+
+	if data == null:
+		print("JSON parse failed")
+		print(text)
+		return
+
+	$Console/VBoxContainer/Label.text = \
+		"Species = " + data["species_name"]
+
+	$Console/VBoxContainer/Label2.text = \
+		"Scientific Name = " + data["scientific_name"]
+
+	$Console/ScrollContainer/RichTextLabel.text = \
+		"Description = " + data["description"]
+	$Console/VBoxContainer/Label4.text = \
+		"Habitat = " + data["habitat"]
+
+	print("Metadata Loaded")
 func remove_background(image: Image):
 
 	image.convert(Image.FORMAT_RGBA8)
@@ -281,5 +337,6 @@ func add_gene(trait_id):
 func _on_button_pressed() -> void:
 	print("BUTTON WORKS")
 	generate_creature()
+	
 func _on_play_pressed() -> void:
 	get_tree().change_scene_to_file("res://main.tscn")

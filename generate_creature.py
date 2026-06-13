@@ -2,7 +2,7 @@ from huggingface_hub import InferenceClient
 from PIL import Image
 import sys
 
-HF_TOKEN = "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"
+HF_TOKEN = "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"
 
 prompt = sys.argv[1]
 

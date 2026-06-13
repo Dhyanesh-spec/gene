@@ -139,14 +139,14 @@ theme_override_font_sizes/font_size = 24
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.49500003
-anchor_top = 0.54300004
-anchor_right = 0.66
-anchor_bottom = 0.707
-offset_left = -0.24005127
-offset_top = 0.13598633
-offset_right = -0.32000732
-offset_bottom = -0.13601685
+anchor_left = 0.56100005
+anchor_top = 0.58500004
+anchor_right = 0.69100004
+anchor_bottom = 0.688
+offset_left = -0.2720337
+offset_top = -0.08001709
+offset_right = -0.032043457
+offset_bottom = 0.17599487
 
 [node name="TextureRect" type="TextureRect" parent="Console/Button" unique_id=400755264]
 layout_mode = 1
@@ -161,6 +161,68 @@ offset_right = 15.664993
 offset_bottom = 17.487991
 texture = ExtResource("3_uw7jv")
 expand_mode = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Console" unique_id=1452078060]
+custom_minimum_size = Vector2(267, 146)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.72200006
+anchor_top = 0.071
+anchor_right = 0.95400006
+anchor_bottom = 0.296
+offset_left = 0.2559204
+offset_top = -0.008003235
+offset_right = -0.008056641
+offset_bottom = 0.19200134
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Console/ScrollContainer" unique_id=1938389302]
+custom_minimum_size = Vector2(267, 146)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/normal_font = ExtResource("4_dtsd6")
+theme_override_font_sizes/normal_font_size = 28
+text = "Description : A large herbivorous mammal adapted for speed and endurance. Serves as the baseline genome for genetic modification experiments."
+fit_content = true
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="Console" unique_id=171132207]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.023000002
+anchor_top = 0.70500004
+anchor_right = 0.186
+anchor_bottom = 0.89400005
+offset_left = -0.4960022
+offset_top = 0.15997314
+offset_right = -0.27200317
+offset_bottom = -0.31201172
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Console/ScrollContainer2" unique_id=457787145]
+custom_minimum_size = Vector2(188, 122)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Console/ScrollContainer2/VBoxContainer" unique_id=353057109]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 28
+text = "Species : Horse"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="Console/ScrollContainer2/VBoxContainer" unique_id=1916325589]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 28
+text = "Scientific Name : Equus ferus caballus"
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="Console/ScrollContainer2/VBoxContainer" unique_id=1970857808]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 28
+text = "Habitat : Grasslands, plains, and open woodland"
+autowrap_mode = 3
 
 [node name="Genes" type="PanelContainer" parent="." unique_id=1066195412]
 layout_mode = 1
@@ -183,14 +245,14 @@ layout_mode = 2
 [node name="CreaturePreview" type="TextureRect" parent="." unique_id=872089943]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.223
-anchor_top = 0.116000004
-anchor_right = 0.688
-anchor_bottom = 0.522
-offset_left = 0.104003906
-offset_top = -0.16799927
-offset_right = 0.4239502
-offset_bottom = -0.25601196
+anchor_left = 0.24000001
+anchor_top = 0.134
+anchor_right = 0.707
+anchor_bottom = 0.60800004
+offset_left = 0.519989
+offset_top = 0.16799927
+offset_right = 0.53601074
+offset_bottom = 0.015960693
 texture = SubResource("CompressedTexture2D_ecarl")
 expand_mode = 1
 stretch_mode = 5
