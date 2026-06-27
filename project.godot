@@ -14,6 +14,10 @@ config/name="gene"
 run/main_scene="uid://ctq6qpa4m5fgy"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
+[autoload]
+
+GlobalData="*uid://bmcn700s4nha2"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

@@ -210,7 +210,7 @@ func loaded_generated_creature():
 	var image = Image.new()
 
 	var err = image.load(
-		"D:/Shalom Essentials/Game development/gene/generated_creature.png"
+		"res://generated_creature.png"
 	)
 
 	if err != OK:
@@ -339,4 +339,12 @@ func _on_button_pressed() -> void:
 	generate_creature()
 	
 func _on_play_pressed() -> void:
+	var total_mobility = 0
+	
+	for trait_id in selected_traits:
+		var gameplay = TraitDatabase.TRAIT_DATABASE[trait_id]["gameplay"]
+		if gameplay.has("mobility"):
+			total_mobility += gameplay["mobility"]
+	
+	GlobalData.current_creature_speed = 200.0 + (total_mobility * 10.0)
 	get_tree().change_scene_to_file("res://main.tscn")
