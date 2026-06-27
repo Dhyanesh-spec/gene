@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dsq05o0een7mk"
+path="res://.godot/imported/Neon Relay.mp3-0db70358c7398c8e516dc187ea8927db.mp3str"
+
+[deps]
+
+source_file="res://Neon Relay.mp3"
+dest_files=["res://.godot/imported/Neon Relay.mp3-0db70358c7398c8e516dc187ea8927db.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

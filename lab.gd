@@ -2,7 +2,10 @@ extends Control
 var CreatureGen = preload("res://creature_gen.gd").new()
 var TraitDatabase = preload("res://traitdatabase.gd").new()
 var GeneCard = preload("res://genecard.tscn")
-
+var flicker_speed = 0
+var synthesizing = false
+var alarm_acknowledged = false
+var loading_progress = 0.0
 @onready var creature_preview = $CreaturePreview
 var selected_traits = []
 var genome_sequence = ""
@@ -41,10 +44,11 @@ func load_generated_creature():
 		return
 
 	var texture = ImageTexture.create_from_image(image)
-
+	$Console/LoadingBar.visible = false
+	$Console/LoadingLabel.visible = false
 	creature_preview.texture = texture
-
 	print("Creature Loaded!")
+
 func update_radar():
 
 	var mobility = 0
@@ -206,6 +210,10 @@ func update_genome():
 
 	update_genome_display()
 func loaded_generated_creature():
+	$Console/LoadingBar.value = 100
+
+	await get_tree().create_timer(0.3).timeout
+
 
 	var image = Image.new()
 
@@ -225,7 +233,10 @@ func loaded_generated_creature():
 	generate_metadata()
 	load_metadata()
 func generate_metadata():
+	loading_progress = 0
 
+	$Console/LoadingBar.visible = true
+	$Console/LoadingBar.value = 0
 	var trait_string = ""
 
 	for trait_id in selected_traits:
@@ -246,6 +257,8 @@ func generate_metadata():
 	)
 
 	print(output)
+	await get_tree().create_timer(2.0).timeout
+	clear_status()
 func load_metadata():
 
 	var file = FileAccess.open(
@@ -266,18 +279,106 @@ func load_metadata():
 		print(text)
 		return
 
-	$Console/VBoxContainer/Label.text = \
+	$Console/ScrollContainer2/VBoxContainer/Label.text = \
 		"Species = " + data["species_name"]
 
-	$Console/VBoxContainer/Label2.text = \
+	$Console/ScrollContainer2/VBoxContainer/Label2.text = \
 		"Scientific Name = " + data["scientific_name"]
 
 	$Console/ScrollContainer/RichTextLabel.text = \
 		"Description = " + data["description"]
-	$Console/VBoxContainer/Label4.text = \
+	$Console/ScrollContainer2/VBoxContainer/Label4.text = \
 		"Habitat = " + data["habitat"]
 
 	print("Metadata Loaded")
+func update_instability():
+
+	var count = selected_traits.size()
+
+	match count:
+
+		0,1,2:
+
+			flicker_speed = 0
+			$Console/StatusLabel.visible = false
+
+		3:
+
+			if !alarm_acknowledged:
+
+				flicker_speed = 1
+				$Console/StatusLabel.visible = true
+				$Console/StatusLabel.text = \
+				"WARNING: GENOME INSTABILITY DETECTED"
+
+		4:
+
+			if !alarm_acknowledged:
+
+				flicker_speed = 2
+				$Console/StatusLabel.visible = true
+				$Console/StatusLabel.text = \
+				"CRITICAL: GENOME DEGRADATION"
+
+		5:
+
+			if !alarm_acknowledged:
+
+				flicker_speed = 3
+				$Console/StatusLabel.visible = true
+				$Console/StatusLabel.text = \
+				"CATASTROPHIC FAILURE RISK"
+func _process(delta):
+
+	if flicker_speed > 0 and not synthesizing:
+
+		$ColorRect.visible = \
+		sin(Time.get_ticks_msec() * 0.01 * flicker_speed) > 0
+
+	else:
+
+		$ColorRect.visible = false
+	if synthesizing:
+
+		loading_progress += delta * 20
+
+		loading_progress = min(
+			loading_progress,
+			95
+		)
+
+		$Console/LoadingBar.value = loading_progress
+
+		if loading_progress < 20:
+
+			$Console/LoadingLabel.text = \
+			"SEQUENCING GENOME..."
+
+		elif loading_progress < 40:
+
+			$Console/LoadingLabel.text = \
+			"ANALYZING DNA..."
+
+		elif loading_progress < 60:
+
+			$Console/LoadingLabel.text = \
+			"STABILIZING MUTATIONS..."
+
+		elif loading_progress < 80:
+
+			$Console/LoadingLabel.text = \
+			"CONSTRUCTING ORGANISM..."
+
+		elif loading_progress < 90:
+
+			$Console/LoadingLabel.text = \
+			"SYNTHESIZING LIFEFORM..."
+		else:
+
+			$Console/LoadingLabel.text = \
+			""
+			$Console/LoadingBar.visible = false
+			
 func remove_background(image: Image):
 
 	image.convert(Image.FORMAT_RGBA8)
@@ -292,9 +393,37 @@ func remove_background(image: Image):
 
 			image.set_pixel(x, y, c)
 func generate_creature():
+	alarm_acknowledged = true
+	flicker_speed = 0
+	$ColorRect.visible = false
+	synthesizing = true
+	alarm_acknowledged = true
+
 
 	print("SYNTHESIZE PRESSED")
+	$Console/StatusLabel.visible = true
+	$Console/StatusLabel.text = "SYNTHESIS IN PROGRESS..."
+	$Console/Button.disabled = true
+	var failure_chance = 0
+	match selected_traits.size():
 
+		0:
+			failure_chance = 0
+
+		1:
+			failure_chance = 0
+
+		2:
+			failure_chance = 10
+
+		3:
+			failure_chance = 25
+
+		4:
+			failure_chance = 50
+
+		5:
+			failure_chance = 75
 	var prompt = CreatureGen.build_prompt(
 		"horse",
 		selected_traits
@@ -303,7 +432,17 @@ func generate_creature():
 	print(prompt)
 
 	var output = []
+	if randi() % 100 < failure_chance:
 
+		$Console/StatusLabel.visible = true
+		$Console/StatusLabel.text = "GENOME COLLAPSE\nSYNTHESIS FAILED"
+
+		$CreaturePreview.texture = null
+
+		synthesizing = false
+		$Console/Button.disabled = false
+
+		return
 	OS.execute(
 		"python",
 		[
@@ -313,10 +452,23 @@ func generate_creature():
 		output,
 		true
 	)
+	loading_progress = 0
 
-	print(output)
-
+	$Console/LoadingBar.visible = true
+	$Console/LoadingLabel.visible = true
 	loaded_generated_creature()
+
+	$Console/Button.disabled = false
+
+	$Console/StatusLabel.text = ""
+
+	await get_tree().create_timer(2.0).timeout
+
+	clear_status()
+func clear_status():
+
+	$Console/StatusLabel.text = ""
+	$Console/StatusLabel.visible = false
 func add_gene(trait_id):
 
 	if selected_traits.size() >= 5:
@@ -328,9 +480,11 @@ func add_gene(trait_id):
 
 	await animate_dna_addition(dna)
 	update_dna_visual()
-
+	update_instability()
 	update_stats()
+	
 	update_sources()
+
 
 
 

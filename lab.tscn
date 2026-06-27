@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://bldb38b7ilmce" path="res://VT323-Regular.ttf" id="4_dtsd6"]
 [ext_resource type="Script" uid="uid://p1m13tmtjttj" path="res://RADAR.gd" id="4_epn36"]
 [ext_resource type="Texture2D" uid="uid://c5ua6pxrbnqgu" path="res://play.png" id="6_ecarl"]
+[ext_resource type="AudioStream" uid="uid://dsq05o0een7mk" path="res://Neon Relay.mp3" id="8_vu75y"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ecarl"]
 load_path = "res://.godot/imported/base_horse.png-49fd239c32d393e603228f6e3ca99bf6.ctex"
@@ -34,6 +35,24 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_3e1xo")
 expand_mode = 1
+
+[node name="StatusLabel" type="Label" parent="Console" unique_id=1526043806]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.238
+anchor_top = 0.57600003
+anchor_right = 0.55
+anchor_bottom = 0.688
+offset_left = -0.17599487
+offset_top = -0.24801636
+offset_right = 0.39996338
+offset_bottom = 0.17599487
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 43
+text = " "
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DNASection" type="PanelContainer" parent="Console" unique_id=1877724876]
 layout_mode = 1
@@ -110,30 +129,35 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
 theme_override_fonts/font = ExtResource("4_dtsd6")
 theme_override_font_sizes/font_size = 24
+text = "Musculoskeletal: 0%"
 
 [node name="Label2" type="Label" parent="Console/stats/VBoxContainer2/VBoxContainer" unique_id=1288324705]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
 theme_override_fonts/font = ExtResource("4_dtsd6")
 theme_override_font_sizes/font_size = 24
+text = "Respiratory: 0%"
 
 [node name="Label3" type="Label" parent="Console/stats/VBoxContainer2/VBoxContainer" unique_id=293416020]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
 theme_override_fonts/font = ExtResource("4_dtsd6")
 theme_override_font_sizes/font_size = 24
+text = "Integumentary: 0%"
 
 [node name="Label4" type="Label" parent="Console/stats/VBoxContainer2/VBoxContainer" unique_id=610064431]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
 theme_override_fonts/font = ExtResource("4_dtsd6")
 theme_override_font_sizes/font_size = 24
+text = "Fat Reaserve: 0%"
 
 [node name="Label5" type="Label" parent="Console/stats/VBoxContainer2/VBoxContainer" unique_id=1729432554]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
 theme_override_fonts/font = ExtResource("4_dtsd6")
 theme_override_font_sizes/font_size = 24
+text = "Thermoregulation: 0%"
 
 [node name="Button" type="Button" parent="Console" unique_id=1023017172]
 custom_minimum_size = Vector2(35, 35)
@@ -224,6 +248,65 @@ theme_override_font_sizes/font_size = 28
 text = "Habitat : Grasslands, plains, and open woodland"
 autowrap_mode = 3
 
+[node name="LoadingBar" type="ProgressBar" parent="Console" unique_id=2017943671]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.23
+anchor_top = 0.582
+anchor_right = 0.43100002
+anchor_bottom = 0.665
+offset_left = 0.040008545
+offset_top = -0.13601685
+offset_right = 0.48797607
+offset_bottom = 0.07998657
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 49
+show_percentage = false
+
+[node name="LoadingLabel" type="Label" parent="Console" unique_id=396442880]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.23
+anchor_top = 0.528
+anchor_right = 0.45900002
+anchor_bottom = 0.58000004
+offset_left = 0.040008545
+offset_top = -0.14401245
+offset_right = 0.23199463
+offset_bottom = 0.15997314
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 33
+text = "SEQUENCING GENOME..."
+
+[node name="CreaturePreview" type="TextureRect" parent="." unique_id=872089943]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24000001
+anchor_top = 0.134
+anchor_right = 0.707
+anchor_bottom = 0.60800004
+offset_left = 0.519989
+offset_top = 0.16799927
+offset_right = 0.53601074
+offset_bottom = 0.015960693
+texture = SubResource("CompressedTexture2D_ecarl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=443053301]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 9.0
+offset_right = 1922.0
+offset_bottom = 945.0
+color = Color(0.80784315, 0, 0.27058825, 0.31764707)
+
 [node name="Genes" type="PanelContainer" parent="." unique_id=1066195412]
 layout_mode = 1
 anchors_preset = -1
@@ -242,21 +325,6 @@ layout_mode = 2
 [node name="genelist" type="VBoxContainer" parent="Genes/Scroller" unique_id=1018997211]
 layout_mode = 2
 
-[node name="CreaturePreview" type="TextureRect" parent="." unique_id=872089943]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.24000001
-anchor_top = 0.134
-anchor_right = 0.707
-anchor_bottom = 0.60800004
-offset_left = 0.519989
-offset_top = 0.16799927
-offset_right = 0.53601074
-offset_bottom = 0.015960693
-texture = SubResource("CompressedTexture2D_ecarl")
-expand_mode = 1
-stretch_mode = 5
-
 [node name="Play" type="TextureButton" parent="." unique_id=1180529946]
 layout_mode = 1
 anchors_preset = -1
@@ -271,6 +339,12 @@ offset_bottom = -16.0
 texture_normal = ExtResource("6_ecarl")
 ignore_texture_size = true
 stretch_mode = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=734276822]
+stream = ExtResource("8_vu75y")
+volume_db = -14.675
+autoplay = true
+parameters/looping = false
 
 [connection signal="pressed" from="Console/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
