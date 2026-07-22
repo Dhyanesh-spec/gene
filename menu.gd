@@ -4,9 +4,12 @@ func _ready() -> void:
 	$MenuMusic.play()
 
 func _on_play_button_pressed() -> void:
-	# This exits the menu and opens your top-down grass map!
-	get_tree().change_scene_to_file("res://lab.tscn")
+	var scene_path = "res://lab.tscn"
 
+	print("Exists:", FileAccess.file_exists(scene_path))
+
+	var err = get_tree().change_scene_to_file(scene_path)
+	print("Error:", err)
 func _on_quit_button_pressed() -> void:
 	# This closes Variant Zero cleanly when quit is clicked
 	get_tree().quit()
