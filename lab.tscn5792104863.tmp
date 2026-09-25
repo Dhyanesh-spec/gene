@@ -1,0 +1,263 @@
+[gd_scene format=3 uid="uid://vaxibajm0tjk"]
+
+[ext_resource type="Script" uid="uid://b56neui6gijb5" path="res://lab.gd" id="1_6kv01"]
+[ext_resource type="Texture2D" uid="uid://bb6y8vkk103go" path="res://ChatGPT Image Sep 25, 2026, 07_49_28 PM.png" id="2_64rup"]
+[ext_resource type="Texture2D" uid="uid://byydqirtqy1y0" path="res://ChatGPT Image Jun 1, 2026, 11_22_24 AM.png" id="3_uw7jv"]
+[ext_resource type="FontFile" uid="uid://bldb38b7ilmce" path="res://VT323-Regular.ttf" id="4_dtsd6"]
+[ext_resource type="Script" uid="uid://p1m13tmtjttj" path="res://RADAR.gd" id="4_epn36"]
+[ext_resource type="Texture2D" uid="uid://cyye1nnlehp3k" path="res://DNA/ChatGPT Image Sep 25, 2026, 07_13_26 PM.png" id="7_64rup"]
+[ext_resource type="Script" uid="uid://2fvsb8dheigi" path="res://gene_tree.gd" id="8_nm8l8"]
+[ext_resource type="AudioStream" uid="uid://dsq05o0een7mk" path="res://Neon Relay.mp3" id="8_vu75y"]
+[ext_resource type="Script" uid="uid://byus7fbftuanb" path="res://chromosome_panel.gd" id="10_nm8l8"]
+[ext_resource type="Texture2D" uid="uid://ds60j7ooykrm0" path="res://DNA/ChatGPT Image Sep 25, 2026, 07_18_19 PM.png" id="10_svsek"]
+[ext_resource type="Script" uid="uid://cy0pbl81flcb2" path="res://ChromosomeGenomeMap_SPACED.gd" id="11_64rup"]
+
+[node name="Lab" type="Control" unique_id=1756389838]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_right = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6kv01")
+
+[node name="Console" type="TextureRect" parent="." unique_id=1273296487]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 9.0
+offset_right = 12.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_64rup")
+expand_mode = 1
+
+[node name="StatusLabel" type="Label" parent="Console" unique_id=1526043806]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.238
+anchor_top = 0.57600003
+anchor_right = 0.55
+anchor_bottom = 0.688
+offset_left = -0.17599487
+offset_top = -0.24801636
+offset_right = 0.39996338
+offset_bottom = 0.17599487
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 43
+text = " "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="stats" type="PanelContainer" parent="Console" unique_id=1587750253]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75900006
+anchor_top = 0.30600002
+anchor_right = 0.95800006
+anchor_bottom = 0.647
+offset_left = -0.368042
+offset_top = -0.28800964
+offset_right = 0.38391113
+offset_bottom = 43.743988
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Console/stats" unique_id=1579422732]
+layout_mode = 2
+
+[node name="RadarChart" type="Control" parent="Console/stats/VBoxContainer2" unique_id=358875944]
+clip_contents = true
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+script = ExtResource("4_epn36")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Console/stats/VBoxContainer2" unique_id=1306913921]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Console/stats/VBoxContainer2/VBoxContainer" unique_id=256358328]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 24
+text = "Musculoskeletal: 0%"
+
+[node name="Label2" type="Label" parent="Console/stats/VBoxContainer2/VBoxContainer" unique_id=1288324705]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 24
+text = "Respiratory: 0%"
+
+[node name="Label3" type="Label" parent="Console/stats/VBoxContainer2/VBoxContainer" unique_id=293416020]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 24
+text = "Integumentary: 0%"
+
+[node name="Label4" type="Label" parent="Console/stats/VBoxContainer2/VBoxContainer" unique_id=610064431]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 24
+text = "Fat Reaserve: 0%"
+
+[node name="Label5" type="Label" parent="Console/stats/VBoxContainer2/VBoxContainer" unique_id=1729432554]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 24
+text = "Thermoregulation: 0%"
+
+[node name="Button" type="Button" parent="Console" unique_id=1023017172]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.56100005
+anchor_top = 0.58500004
+anchor_right = 0.69100004
+anchor_bottom = 0.688
+offset_left = -0.2720337
+offset_top = -0.08001709
+offset_right = -0.032043457
+offset_bottom = 0.17599487
+
+[node name="TextureRect" type="TextureRect" parent="Console/Button" unique_id=400755264]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.712
+anchor_top = 0.694
+anchor_right = 0.89900005
+anchor_bottom = 0.96700007
+offset_left = -118.48
+offset_top = -81.384
+offset_right = 15.664993
+offset_bottom = 17.487991
+texture = ExtResource("3_uw7jv")
+expand_mode = 1
+
+[node name="LoadingBar" type="ProgressBar" parent="Console" unique_id=2017943671]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.23
+anchor_top = 0.582
+anchor_right = 0.43100002
+anchor_bottom = 0.665
+offset_left = 0.040008545
+offset_top = -0.13601685
+offset_right = 0.48797607
+offset_bottom = 0.07998657
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 49
+show_percentage = false
+
+[node name="LoadingLabel" type="Label" parent="Console" unique_id=396442880]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.23
+anchor_top = 0.528
+anchor_right = 0.45900002
+anchor_bottom = 0.58000004
+offset_left = 0.040008545
+offset_top = -0.14401245
+offset_right = 0.23199463
+offset_bottom = 0.15997314
+theme_override_colors/font_color = Color(0.4862745, 1, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 33
+text = "SEQUENCING GENOME..."
+
+[node name="CreaturePreview" type="TextureRect" parent="." unique_id=872089943]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24000001
+anchor_top = 0.134
+anchor_right = 0.707
+anchor_bottom = 0.60800004
+offset_left = -15.480011
+offset_top = -18.832
+offset_right = -21.46399
+offset_bottom = 46.01596
+texture = ExtResource("7_64rup")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=443053301]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 9.0
+offset_right = 1922.0
+offset_bottom = 945.0
+color = Color(0.80784315, 0, 0.27058825, 0.31764707)
+
+[node name="Genes" type="PanelContainer" parent="." unique_id=1066195412]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07300001
+anchor_top = 0.106000006
+anchor_right = 0.21400002
+anchor_bottom = 0.71300006
+offset_left = -0.0960083
+offset_top = 0.31199646
+offset_right = -7.528015
+offset_bottom = -15.024048
+
+[node name="GeneTree" type="Tree" parent="Genes" unique_id=998365203]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5442771, 0.7903648, 0.19204998, 1)
+theme_override_colors/font_hovered_color = Color(0.42694265, 0.7008816, 0, 1)
+theme_override_fonts/font = ExtResource("4_dtsd6")
+theme_override_fonts/title_button_font = ExtResource("4_dtsd6")
+theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/title_button_font_size = 21
+hide_root = true
+script = ExtResource("8_nm8l8")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=734276822]
+stream = ExtResource("8_vu75y")
+volume_db = -14.675
+autoplay = true
+parameters/looping = false
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=681004391]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.76000005
+anchor_top = 0.076000005
+anchor_right = 0.9990001
+anchor_bottom = 0.39800003
+offset_left = -56.52008
+offset_top = 9.751995
+offset_right = -1.8481445
+offset_bottom = 66.09598
+texture = ExtResource("10_svsek")
+expand_mode = 1
+
+[node name="ChromosomePanel" type="PanelContainer" parent="." unique_id=460926532]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 480.0
+offset_right = 1143.0
+offset_bottom = 630.0
+script = ExtResource("10_nm8l8")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ChromosomePanel" unique_id=605420527]
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="ChromosomeMap" type="Control" parent="ChromosomePanel/ScrollContainer" unique_id=1831949346]
+layout_mode = 2
+script = ExtResource("11_64rup")
+
+[connection signal="pressed" from="Console/Button" to="." method="_on_button_pressed"]

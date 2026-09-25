@@ -1,490 +1,203 @@
 extends Control
-var CreatureGen = preload("res://creature_gen.gd").new()
+
+# ============================================================
+# VARIANT ZERO - LAB CORE
+#
+# Lab responsibilities:
+#   1. Receive gene selections from GeneTree
+#   2. Keep track of selected traits
+#   3. Send real genomic loci to ChromosomeMap
+#
+# NOT handled here:
+#   - Creature generation
+#   - Creature preview
+#   - Metadata
+#   - Loading bars
+#   - Synthesis
+#   - Old DNA UI
+#   - Old GeneCard UI
+#   - Organism generation
+# ============================================================
+
+var gene_context_panel: Control = null
 var TraitDatabase = preload("res://traitdatabase.gd").new()
-var GeneCard = preload("res://genecard.tscn")
-var flicker_speed = 0
-@onready var professor = $ProfessorChat
-var synthesizing = false
-var alarm_acknowledged = false
-var loading_progress = 0.0
-@onready var creature_preview = $CreaturePreview
-var selected_traits = []
-var genome_sequence = ""
-var dna_stages = [
-	preload("res://dna_stable.png"),
-	preload("res://dna_midlyunstable.png"),
-	preload("res://dna_modified.png"),
-	preload("res://dna_unstable.png"),
-	preload("res://dna_severecorruption.png"),
-	preload("res://dna_severecorruption.png"),
-]
-func _ready():
 
-	for trait_id in TraitDatabase.TRAIT_DATABASE.keys():
+var gene_tree: Tree
+var chromosome_map: Node
 
-		var data = TraitDatabase.TRAIT_DATABASE[trait_id]
+var selected_traits: Array[String] = []
+@onready var creature_preview: TextureRect = find_child(
+	"CreaturePreview",
+	true,
+	false
+) as TextureRect
 
-		var card = GeneCard.instantiate()
 
-		card.setup(
-			data["name"],
-			data["description"],
-			data["icon"],
-			trait_id
+@onready var generate_button: BaseButton = find_child(
+	"GenerateButton",
+	true,
+	false
 )
-		card.gene_selected.connect(add_gene)
-		$Genes/Scroller/genelist.add_child(card)
-func load_generated_creature():
 
-	var image = Image.new()
-
-	var err = image.load("D:/Shalom Essentials/Game development/gene/generated_creature.png")
-
-	if err != OK:
-		print("Failed to load image")
-		return
-
-	var texture = ImageTexture.create_from_image(image)
-	$Console/LoadingBar.visible = false
-	$Console/LoadingLabel.visible = false
-	creature_preview.texture = texture
-	print("Creature Loaded!")
-
-func update_radar():
-
-	var mobility = 0
-	var defense = 0
-	var endurance = 0
-	var fat_reserve = 0
-	var thermoregulation = 0
-
-	for trait_id in selected_traits:
-
-		var gameplay = TraitDatabase.TRAIT_DATABASE[trait_id]["gameplay"]
-
-		mobility += gameplay.get("mobility", 0)
-		defense += gameplay.get("defense", 0)
-		endurance += gameplay.get("endurance", 0)
-		fat_reserve += gameplay.get("fat_storage", 0)
-		thermoregulation += gameplay.get("thermoregulation", 0)
-
-	var radar = $Console/stats/VBoxContainer2/RadarChart
-
-	radar.values = [
-		mobility,
-		defense,
-		endurance,
-		fat_reserve,
-		thermoregulation
-	]
-
-	radar.queue_redraw()
-func update_professor_context() -> void:
-
-	var traits := []
-
-	var mobility := 0
-	var defense := 0
-	var endurance := 0
-	var fat_storage := 0
-	var thermoregulation := 0
-
-	for trait_id in selected_traits:
-
-		var data = TraitDatabase.TRAIT_DATABASE[trait_id]
-
-		traits.append(data["name"])
-
-		var gameplay = data["gameplay"]
-
-		mobility += gameplay.get("mobility", 0)
-		defense += gameplay.get("defense", 0)
-		endurance += gameplay.get("endurance", 0)
-		fat_storage += gameplay.get("fat_storage", 0)
-		thermoregulation += gameplay.get("thermoregulation", 0)
-
-
-	var context := {
-		"selected_traits": traits,
-		"genome": genome_sequence,
-		"trait_count": selected_traits.size(),
-
-		"mobility": mobility,
-		"defense": defense,
-		"endurance": endurance,
-		"fat_storage": fat_storage,
-		"thermoregulation": thermoregulation,
-
-		"instability_level": selected_traits.size()
-	}
-
-	professor.set_lab_context(context)
-func update_stats():
-
-	var musculoskeletal = 0
-	var integumentary = 0
-	var respiratory = 0
-	var thermoregulation = 0
-	var fat_storage = 0
-	for trait_id in selected_traits:
-
-		var gameplay = TraitDatabase.TRAIT_DATABASE[trait_id]["gameplay"]
-
-		if gameplay.has("mobility"):
-			musculoskeletal += gameplay["mobility"]
-
-		if gameplay.has("defense"):
-			integumentary += gameplay["defense"]
-
-		if gameplay.has("endurance"):
-			respiratory += gameplay["endurance"]
-
-		if gameplay.has("thermoregulation"):
-			thermoregulation += gameplay["thermoregulation"]
-		if gameplay.has("fat_storage"):
-			fat_storage += gameplay["fat_storage"]
-
-	$Console/stats/VBoxContainer2/VBoxContainer/Label.text = \
-"Musculoskeletal: %d%%" % musculoskeletal
-
-	$Console/stats/VBoxContainer2/VBoxContainer/Label2.text = \
-"Respiratory: %d%%" % respiratory
-
-	$Console/stats/VBoxContainer2/VBoxContainer/Label3.text = \
-"Integumentary: %d%%" % integumentary
-
-	$Console/stats/VBoxContainer2/VBoxContainer/Label5.text = \
-"Thermoregulation: %d%%" % thermoregulation
-	$Console/stats/VBoxContainer2/VBoxContainer/Label4.text = \
-"Fat Reaserve: %d%%" % fat_storage
-	update_radar()
-func update_dna_visual():
-
-	var stage = clamp(selected_traits.size(), 0, 6)
-
-	$Console/DNASection/ScrollContainer/VBoxContainer2/TextureRect.texture = dna_stages[stage]
-	match stage:
-
-		0:
-			$Console/DNASection/ScrollContainer/VBoxContainer2/Label2.text = "GENOME STABLE"
-
-		1:
-			$Console/DNASection/ScrollContainer/VBoxContainer2/Label2.text = "MINOR MUTATIONS"
-
-		2:
-			$Console/DNASection/ScrollContainer/VBoxContainer2/Label2.text = "GENOME MODIFIED"
-
-		3:
-			$Console/DNASection/ScrollContainer/VBoxContainer2/Label2.text = "GENOME UNSTABLE"
-
-		4:
-			$Console/DNASection/ScrollContainer/VBoxContainer2/Label2.text = "SEVERE DEGRADATION"
-
-		5:
-			$Console/DNASection/ScrollContainer/VBoxContainer2/Label2.text = "CRITICAL GENOME FAILURE"
-		5:
-			$Console/DNASection/ScrollContainer/VBoxContainer2/Label2.text = "GENE BREAKDOWN ACTIVATED"
-func update_genome_display():
-
-	var text = ""
-
-	for letter in genome_sequence:
-
-		match letter:
-
-			"A":
-				text += "[color=green]A[/color]"
-
-			"T":
-				text += "[color=red]T[/color]"
-
-			"G":
-				text += "[color=cyan]G[/color]"
-
-			"C":
-				text += "[color=yellow]C[/color]"
-
-			"|":
-				text += "[color=white] | [/color]"
-
-	$Console/DNASection/ScrollContainer/VBoxContainer2/RichTextLabel.bbcode_enabled = true
-	$Console/DNASection/ScrollContainer/VBoxContainer2/RichTextLabel.text = text
-
-	$Console/DNASection/ScrollContainer/VBoxContainer2/Label.text = \
-	"Traits: %d / 5" % selected_traits.size()
-
-	update_dna_visual()
-	update_sources()
-func update_sources():
-
-	var text = "Sources:\n"
-
-	for trait_id in selected_traits:
-
-		var data = TraitDatabase.TRAIT_DATABASE[trait_id]
-
-		text += data["source_animals"][0] + "\n"
-
-	$Console/DNASection/ScrollContainer/VBoxContainer2/VBoxContainer/Label.text = text
-
-func animate_dna_addition(dna):
-
-	for letter in dna:
-
-		genome_sequence += letter
-
-		update_genome_display()
-
-		await get_tree().create_timer(0.05).timeout
-func update_genome():
-
-	genome_sequence = ""
-
-	for trait_id in selected_traits:
-
-		var dna = TraitDatabase.TRAIT_DATABASE[trait_id]["dna"]
-
-		if genome_sequence != "":
-			genome_sequence += "|"
-
-		genome_sequence += dna
-
-	update_genome_display()
-func loaded_generated_creature():
-	$Console/LoadingBar.value = 100
-
-	await get_tree().create_timer(0.3).timeout
-
-
-	var image = Image.new()
-
-	var err = image.load(
-		"res://generated_creature.png"
+func _ready() -> void:
+
+	gene_tree = find_child(
+		"GeneTree",
+		true,
+		false
+	) as Tree
+
+	chromosome_map = find_child(
+		"ChromosomeMap",
+		true,
+		false
 	)
 
-	if err != OK:
-		print("Failed to load image")
-		return
-	remove_background(image)
-	var texture = ImageTexture.create_from_image(image)
 
-	creature_preview.texture = texture
 
-	print("Creature Loaded!")
-	generate_metadata()
-	load_metadata()
-func generate_metadata():
-	loading_progress = 0
+	generate_button = find_child(
+		"TextureButton",
+		true,
+		false
+	) as BaseButton
 
-	$Console/LoadingBar.visible = true
-	$Console/LoadingBar.value = 0
-	var trait_string = ""
 
-	for trait_id in selected_traits:
+	# -----------------------------
+	# GENE TREE
+	# -----------------------------
 
-		trait_string += \
-		TraitDatabase.TRAIT_DATABASE[trait_id]["name"] + ", "
+	if gene_tree == null:
 
-	var output = []
-
-	OS.execute(
-		"python",
-		[
-			"generate_metadata.py",
-			trait_string
-		],
-		output,
-		true
-	)
-
-	print(output)
-	await get_tree().create_timer(2.0).timeout
-	clear_status()
-func load_metadata():
-
-	var file = FileAccess.open(
-		"metadata.json",
-		FileAccess.READ
-	)
-
-	if file == null:
-		print("metadata.json not found")
-		return
-
-	var text = file.get_as_text()
-
-	var data = JSON.parse_string(text)
-
-	if data == null:
-		print("JSON parse failed")
-		print(text)
-		return
-
-	$Console/ScrollContainer2/VBoxContainer/Label.text = \
-		"Species = " + data["species_name"]
-
-	$Console/ScrollContainer2/VBoxContainer/Label2.text = \
-		"Scientific Name = " + data["scientific_name"]
-
-	$Console/ScrollContainer/RichTextLabel.text = \
-		"Description = " + data["description"]
-	$Console/ScrollContainer2/VBoxContainer/Label4.text = \
-		"Habitat = " + data["habitat"]
-
-	print("Metadata Loaded")
-func update_instability():
-
-	var count = selected_traits.size()
-
-	match count:
-
-		0,1,2:
-
-			flicker_speed = 0
-			$Console/StatusLabel.visible = false
-
-		3:
-
-			if !alarm_acknowledged:
-
-				flicker_speed = 1
-				$Console/StatusLabel.visible = true
-				$Console/StatusLabel.text = \
-				"WARNING: GENOME INSTABILITY DETECTED"
-
-		4:
-
-			if !alarm_acknowledged:
-
-				flicker_speed = 2
-				$Console/StatusLabel.visible = true
-				$Console/StatusLabel.text = \
-				"CRITICAL: GENOME DEGRADATION"
-
-		5:
-
-			if !alarm_acknowledged:
-
-				flicker_speed = 3
-				$Console/StatusLabel.visible = true
-				$Console/StatusLabel.text = \
-				"CATASTROPHIC FAILURE RISK"
-func _process(delta):
-
-	if flicker_speed > 0 and not synthesizing:
-
-		$ColorRect.visible = \
-		sin(Time.get_ticks_msec() * 0.01 * flicker_speed) > 0
+		push_error(
+			"LAB ERROR: GeneTree NOT FOUND"
+		)
 
 	else:
 
-		$ColorRect.visible = false
-	if synthesizing:
-
-		loading_progress += delta * 20
-
-		loading_progress = min(
-			loading_progress,
-			95
+		print(
+			"LAB: GeneTree FOUND"
 		)
 
-		$Console/LoadingBar.value = loading_progress
+		if gene_tree.has_signal(
+			"gene_selected"
+		):
 
-		if loading_progress < 20:
+			var gene_callback := Callable(
+				self,
+				"_on_gene_selected"
+			)
 
-			$Console/LoadingLabel.text = \
-			"SEQUENCING GENOME..."
+			if not gene_tree.is_connected(
+				"gene_selected",
+				gene_callback
+			):
 
-		elif loading_progress < 40:
+				gene_tree.connect(
+					"gene_selected",
+					gene_callback
+				)
 
-			$Console/LoadingLabel.text = \
-			"ANALYZING DNA..."
+			print(
+				"LAB: GeneTree signal connected"
+			)
 
-		elif loading_progress < 60:
-
-			$Console/LoadingLabel.text = \
-			"STABILIZING MUTATIONS..."
-
-		elif loading_progress < 80:
-
-			$Console/LoadingLabel.text = \
-			"CONSTRUCTING ORGANISM..."
-
-		elif loading_progress < 90:
-
-			$Console/LoadingLabel.text = \
-			"SYNTHESIZING LIFEFORM..."
 		else:
 
-			$Console/LoadingLabel.text = \
-			""
-			$Console/LoadingBar.visible = false
-			
-func remove_background(image: Image):
-
-	image.convert(Image.FORMAT_RGBA8)
-
-	for y in range(image.get_height()):
-		for x in range(image.get_width()):
-
-			var c = image.get_pixel(x, y)
-
-			if c.r > 0.8 and c.g < 0.3 and c.b > 0.8:
-				c.a = 0
-
-			image.set_pixel(x, y, c)
-func generate_creature():
-	alarm_acknowledged = true
-	flicker_speed = 0
-	$ColorRect.visible = false
-	synthesizing = true
-	alarm_acknowledged = true
+			push_error(
+				"LAB ERROR: GeneTree has no gene_selected signal"
+			)
 
 
-	print("SYNTHESIZE PRESSED")
-	$Console/StatusLabel.visible = true
-	$Console/StatusLabel.text = "SYNTHESIS IN PROGRESS..."
-	$Console/Button.disabled = true
-	var failure_chance = 0
-	match selected_traits.size():
+	# -----------------------------
+	# CHROMOSOME MAP
+	# -----------------------------
 
-		0:
-			failure_chance = 0
+	if chromosome_map == null:
 
-		1:
-			failure_chance = 0
+		push_error(
+			"LAB ERROR: ChromosomeMap NOT FOUND"
+		)
 
-		2:
-			failure_chance = 10
+	else:
 
-		3:
-			failure_chance = 25
+		print(
+			"LAB: ChromosomeMap FOUND"
+		)
 
-		4:
-			failure_chance = 50
 
-		5:
-			failure_chance = 75
-	var prompt = CreatureGen.build_prompt(
-		"horse",
+	# -----------------------------
+	# GENERATE BUTTON
+	# -----------------------------
+
+	if generate_button == null:
+
+		push_error(
+			"LAB ERROR: TextureButton NOT FOUND"
+		)
+
+	else:
+
+		print(
+			"LAB: TextureButton FOUND"
+		)
+
+		var button_callback := Callable(
+			self,
+			"_on_generate_pressed"
+		)
+
+		if not generate_button.is_connected(
+			"pressed",
+			button_callback
+		):
+
+			generate_button.connect(
+				"pressed",
+				button_callback
+			)
+
+			print(
+				"LAB: Generate button connected"
+			)
+
+
+	print(
+		"========== LAB CORE READY =========="
+	)
+func _on_generate_pressed() -> void:
+
+	print("")
+	print("========================================")
+	print("GENERATE BUTTON PRESSED")
+	print("========================================")
+
+	print(
+		"Selected genes: ",
 		selected_traits
 	)
 
-	print(prompt)
-
-	var output = []
-	if randi() % 100 < failure_chance:
-
-		$Console/StatusLabel.visible = true
-		$Console/StatusLabel.text = "GENOME COLLAPSE\nSYNTHESIS FAILED"
-
-		$CreaturePreview.texture = null
-
-		synthesizing = false
-		$Console/Button.disabled = false
-
+	if selected_traits.is_empty():
+		print("FAILURE: NO GENES SELECTED")
+		push_error(
+			"Cannot generate creature: no genes selected."
+		)
 		return
-	OS.execute(
+
+	print("Building creature prompt...")
+
+	var prompt := build_creature_prompt()
+
+	print("")
+	print("------------- FINAL PROMPT -------------")
+	print(prompt)
+	print("----------------------------------------")
+	print("")
+
+	var output := []
+
+	print("Calling generate_creature.py...")
+
+	var exit_code := OS.execute(
 		"python",
 		[
 			"generate_creature.py",
@@ -493,54 +206,553 @@ func generate_creature():
 		output,
 		true
 	)
-	loading_progress = 0
 
-	$Console/LoadingBar.visible = true
-	$Console/LoadingLabel.visible = true
-	loaded_generated_creature()
+	print("Python exit code: ", exit_code)
+	print("Python output: ", output)
 
-	$Console/Button.disabled = false
+	if exit_code != 0:
+		push_error(
+			"CREATURE GENERATION FAILED"
+		)
 
-	$Console/StatusLabel.text = ""
+		print(
+			"ERROR: generate_creature.py returned ",
+			exit_code
+		)
 
-	await get_tree().create_timer(2.0).timeout
+		return
 
-	clear_status()
-func clear_status():
+	print("CREATURE GENERATION SUCCESSFUL")
+	print("Loading generated creature...")
 
-	$Console/StatusLabel.text = ""
-	$Console/StatusLabel.visible = false
-func add_gene(trait_id):
+	load_generated_creature()
+
+	print("========================================")
+func load_generated_creature() -> void:
+
+	if creature_preview == null:
+		push_error(
+			"CreaturePreview node was not found."
+		)
+		return
+
+	var image := Image.new()
+
+	var error := image.load(
+		"res://generated_creature.png"
+	)
+
+	if error != OK:
+		push_error(
+			"Could not load res://generated_creature.png"
+		)
+		print(
+			"Image load error code: ",
+			error
+		)
+		return
+
+	print(
+		"Generated image loaded successfully."
+	)
+
+	# Remove the magenta background if your generator
+	# still produces it.
+	remove_background(image)
+
+	var texture := ImageTexture.create_from_image(
+		image
+	)
+
+	creature_preview.texture = texture
+
+	print(
+		"CreaturePreview updated successfully."
+	)
+func remove_background(
+	image: Image
+) -> void:
+
+	image.convert(
+		Image.FORMAT_RGBA8
+	)
+
+	for y in range(
+		image.get_height()
+	):
+
+		for x in range(
+			image.get_width()
+		):
+
+			var pixel := image.get_pixel(
+				x,
+				y
+			)
+
+			if (
+				pixel.r > 0.8
+				and pixel.g < 0.3
+				and pixel.b > 0.8
+			):
+
+				pixel.a = 0.0
+
+			image.set_pixel(
+				x,
+				y,
+				pixel
+			)
+func build_creature_prompt() -> String:
+
+	var prompt := ""
+
+	prompt += """
+Create one pixel art of biologically coherent organism based on a domestic dog.
+
+The organism must integrate all selected genetic traits into
+one anatomically and physiologically consistent body.
+
+SELECTED GENETIC TRAITS:
+"""
+
+
+	for i in range(
+		selected_traits.size()
+	):
+
+		var trait_id := selected_traits[i]
+
+		if not TraitDatabase.TRAIT_DATABASE.has(
+			trait_id
+		):
+			continue
+
+		var data: Dictionary = (
+			TraitDatabase.TRAIT_DATABASE[
+				trait_id
+			]
+		)
+
+
+		var name := str(
+			data.get(
+				"name",
+				trait_id
+			)
+		)
+
+		var description := str(
+			data.get(
+				"description",
+				""
+			)
+		)
+
+
+		prompt += "\n"
+
+		prompt += (
+			"Trait "
+			+ str(i + 1)
+			+ ": "
+			+ name
+			+ "\n"
+		)
+
+
+		if description != "":
+
+			prompt += (
+				"Biological effect: "
+				+ description
+				+ "\n"
+			)
+
+
+		var gameplay: Dictionary = (
+			data.get(
+				"gameplay",
+				{}
+			)
+		)
+
+
+		if not gameplay.is_empty():
+
+			prompt += (
+				"Functional effects: "
+			)
+
+			var effects: Array[String] = []
+
+			for key in gameplay.keys():
+
+				var value = gameplay[key]
+
+				if value != 0:
+
+					effects.append(
+						str(key)
+						+ " "
+						+ str(value)
+					)
+
+			prompt += (
+				", ".join(effects)
+				+ "\n"
+			)
+
+
+	prompt += """
+
+BIOLOGICAL RULES:
+
+- Produce one single organism.
+- Preserve canine anatomy as the base.
+- Integrate every selected trait.
+- Do not paste unrelated animal body parts onto the dog.
+- Avoid duplicate limbs or impossible anatomy.
+- Make skeletal, muscular, respiratory and integumentary systems
+  internally consistent.
+- Every selected trait must have a visible or physiological effect.
+- The final organism must look biologically coherent.
+"""
+
+	return prompt
+func _on_gene_selected(
+	trait_id: String,
+	gene_data: Dictionary
+) -> void:
+
+	add_gene(
+		trait_id,
+		gene_data
+	)
+
+
+func add_gene(
+	trait_id: String,
+	gene_data: Dictionary
+) -> void:
 
 	if selected_traits.size() >= 5:
 		return
 
-	selected_traits.append(trait_id)
+	if trait_id in selected_traits:
+		return
 
-	var dna = TraitDatabase.TRAIT_DATABASE[trait_id]["dna"]
+	if not TraitDatabase.TRAIT_DATABASE.has(
+		trait_id
+	):
+		return
 
-	await animate_dna_addition(dna)
-	update_dna_visual()
-	update_instability()
-	update_stats()
-	
-	update_sources()
-	update_professor_context()
+	selected_traits.append(
+		trait_id
+	)
+
+	var trait_data: Dictionary = (
+		TraitDatabase.TRAIT_DATABASE[
+			trait_id
+		]
+	)
+
+	var gene_name := str(
+		trait_data.get(
+			"name",
+			trait_id
+		)
+	)
+
+	print(
+		"GENE ADDED: ",
+		gene_name
+	)
+
+	# Orange marker
+	if chromosome_map != null:
+		if chromosome_map.has_method(
+			"show_gene_marker"
+		):
+			chromosome_map.show_gene_marker()
+
+	# Separate information panel
+	update_gene_context(
+		trait_id,
+		gene_data
+	)
+func update_gene_context(
+	trait_id: String,
+	gene_data: Dictionary
+) -> void:
+
+	if gene_context_panel == null:
+		return
+
+	var data: Dictionary = gene_data
+
+	if data.is_empty():
+		data = TraitDatabase.TRAIT_DATABASE.get(
+			trait_id,
+			{}
+		)
+
+	var name := str(
+		data.get(
+			"name",
+			trait_id
+		)
+	)
+
+	var description := str(
+		data.get(
+			"description",
+			"No description available."
+		)
+	)
+
+	var category := str(
+		data.get(
+			"category",
+			"GENETIC TRAIT"
+		)
+	)
+
+	var chromosome := str(
+		data.get(
+			"chromosome",
+			"Unmapped"
+		)
+	)
+
+	var source_text := "Unknown"
+
+	var sources = data.get(
+		"source_animals",
+		[]
+	)
+
+	if sources is Array and not sources.is_empty():
+		source_text = str(
+			sources[0]
+		)
+
+	var name_label = gene_context_panel.find_child(
+		"GeneName",
+		true,
+		false
+	)
+
+	var description_label = gene_context_panel.find_child(
+		"GeneDescription",
+		true,
+		false
+	)
+
+	var category_label = gene_context_panel.find_child(
+		"GeneFunction",
+		true,
+		false
+	)
+
+	var chromosome_label = gene_context_panel.find_child(
+		"GeneChromosome",
+		true,
+		false
+	)
+
+	var source_label = gene_context_panel.find_child(
+		"GeneSource",
+		true,
+		false
+	)
+
+	if name_label:
+		name_label.text = name
+
+	if description_label:
+		description_label.text = description
+
+	if category_label:
+		category_label.text = (
+			"FUNCTION: " + category
+		)
+
+	if chromosome_label:
+		chromosome_label.text = (
+			"CHROMOSOME: " + chromosome
+		)
+
+	if source_label:
+		source_label.text = (
+			"SOURCE: " + source_text
+		)
+
+# ============================================================
+# CHROMOSOME MAP
+# ============================================================
+
+func send_gene_to_chromosome_map(
+	trait_id: String,
+	gene_data: Dictionary
+) -> void:
+
+	if chromosome_map == null:
+		return
+
+	if not chromosome_map.has_method(
+		"add_gene"
+	):
+		push_error(
+			"ChromosomeMap is missing add_gene()."
+		)
+		return
+
+	var loci := get_gene_loci(
+		trait_id,
+		gene_data
+	)
+
+	for locus in loci:
+		chromosome_map.call(
+			"add_gene",
+			locus
+		)
 
 
+# ============================================================
+# GET REAL GENOMIC LOCATIONS
+#
+# Supported TraitDatabase formats:
+#
+# OPTION 1 - multiple genes:
+#
+# "genomic_loci": [
+#     {
+#         "name": "MC1R",
+#         "chromosome": 5,
+#         "start": 63922271,
+#         "end": 63923224,
+#         "mode": "addition"
+#     }
+# ]
+#
+# OPTION 2 - one gene:
+#
+# "chromosome": 5,
+# "start": 63922271,
+# "end": 63923224
+# ============================================================
 
+func get_gene_loci(
+	trait_id: String,
+	gene_data: Dictionary
+) -> Array[Dictionary]:
 
-func _on_button_pressed() -> void:
-	print("BUTTON WORKS")
-	generate_creature()
-	
-func _on_play_pressed() -> void:
-	var total_mobility = 0
-	
-	for trait_id in selected_traits:
-		var gameplay = TraitDatabase.TRAIT_DATABASE[trait_id]["gameplay"]
-		if gameplay.has("mobility"):
-			total_mobility += gameplay["mobility"]
-	
-	GlobalData.current_creature_speed = 200.0 + (total_mobility * 10.0)
-	get_tree().change_scene_to_file("res://main.tscn")
+	var loci: Array[Dictionary] = []
+
+	var data: Dictionary = gene_data
+
+	if data.is_empty():
+		data = TraitDatabase.TRAIT_DATABASE.get(
+			trait_id,
+			{}
+		)
+
+	# TEST: MC1R
+	if trait_id == "mc1r":
+
+		loci.append({
+			"name": "MC1R",
+			"chromosome": 5,
+			"start": 63922271,
+			"end": 63923224,
+			"mode": "addition"
+		})
+
+		return loci
+
+	if data.has("genomic_loci"):
+
+		var raw_loci = data["genomic_loci"]
+
+		if raw_loci is Array:
+
+			for raw_locus in raw_loci:
+
+				if raw_locus is Dictionary:
+
+					loci.append(
+						normalize_locus(
+							raw_locus,
+							trait_id
+						)
+					)
+
+		return loci
+
+	if data.has("loci"):
+
+		var raw_loci = data["loci"]
+
+		if raw_loci is Array:
+
+			for raw_locus in raw_loci:
+
+				if raw_locus is Dictionary:
+
+					loci.append(
+						normalize_locus(
+							raw_locus,
+							trait_id
+						)
+					)
+
+		return loci
+
+	if (
+		data.has("chromosome")
+		and data.has("start")
+	):
+
+		loci.append(
+			normalize_locus(
+				data,
+				trait_id
+			)
+		)
+
+	return loci
+# ============================================================
+# NORMALIZE GENE DATA
+# ============================================================
+
+func normalize_locus(
+	locus: Dictionary,
+	trait_id: String
+) -> Dictionary:
+
+	var result: Dictionary = (
+		locus.duplicate(true)
+	)
+
+	# Give the locus a display name.
+	if not result.has(
+		"name"
+	):
+
+		result["name"] = str(
+			result.get(
+				"gene_symbol",
+				trait_id
+			)
+		)
+
+	# Default = orange addition marker.
+	if not result.has(
+		"mode"
+	):
+
+		result["mode"] = "addition"
+
+	return result
