@@ -3,6 +3,7 @@ var CreatureGen = preload("res://creature_gen.gd").new()
 var TraitDatabase = preload("res://traitdatabase.gd").new()
 var GeneCard = preload("res://genecard.tscn")
 var flicker_speed = 0
+@onready var professor = $ProfessorChat
 var synthesizing = false
 var alarm_acknowledged = false
 var loading_progress = 0.0
@@ -78,6 +79,46 @@ func update_radar():
 	]
 
 	radar.queue_redraw()
+func update_professor_context() -> void:
+
+	var traits := []
+
+	var mobility := 0
+	var defense := 0
+	var endurance := 0
+	var fat_storage := 0
+	var thermoregulation := 0
+
+	for trait_id in selected_traits:
+
+		var data = TraitDatabase.TRAIT_DATABASE[trait_id]
+
+		traits.append(data["name"])
+
+		var gameplay = data["gameplay"]
+
+		mobility += gameplay.get("mobility", 0)
+		defense += gameplay.get("defense", 0)
+		endurance += gameplay.get("endurance", 0)
+		fat_storage += gameplay.get("fat_storage", 0)
+		thermoregulation += gameplay.get("thermoregulation", 0)
+
+
+	var context := {
+		"selected_traits": traits,
+		"genome": genome_sequence,
+		"trait_count": selected_traits.size(),
+
+		"mobility": mobility,
+		"defense": defense,
+		"endurance": endurance,
+		"fat_storage": fat_storage,
+		"thermoregulation": thermoregulation,
+
+		"instability_level": selected_traits.size()
+	}
+
+	professor.set_lab_context(context)
 func update_stats():
 
 	var musculoskeletal = 0
@@ -484,6 +525,7 @@ func add_gene(trait_id):
 	update_stats()
 	
 	update_sources()
+	update_professor_context()
 
 
 

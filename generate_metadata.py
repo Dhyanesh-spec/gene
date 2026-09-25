@@ -5,7 +5,7 @@ import sys
 traits = sys.argv[1]
 
 client = InferenceClient(
-    api_key="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"
+    api_key="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"
 )
 
 prompt = f"""

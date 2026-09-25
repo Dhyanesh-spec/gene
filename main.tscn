@@ -1,235 +1,54 @@
 [gd_scene format=3 uid="uid://bfsyveoyf67g8"]
 
 [ext_resource type="Script" uid="uid://bq5vbnq08wbdh" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="Texture2D" uid="uid://dllv3syorrx8g" path="res://ChatGPT Image May 31, 2026, 12_47_55 PM.png" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://c8b7nyxj2igfi" path="res://player.tscn" id="2_0xm2m"]
 [ext_resource type="FontFile" uid="uid://bldb38b7ilmce" path="res://VT323-Regular.ttf" id="4_7mycd"]
-[ext_resource type="Script" uid="uid://cxeqbpvuhnpsh" path="res://bush.gd" id="4_lquwl"]
-[ext_resource type="Texture2D" uid="uid://db5yer15qrgsg" path="res://ChatGPT Image Jun 17, 2026, 03_42_51 PM (1).png" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://ba5sk4ahin0nw" path="res://Gemini_Generated_Image_4zfqgc4zfqgc4zfq.png" id="5_7mycd"]
+[ext_resource type="Script" uid="uid://cegpinnrvmvmy" path="res://world_terrain.gd" id="6_272bh"]
 [ext_resource type="AudioStream" uid="uid://cxakdt664iid0" path="res://Berry Patch Route.mp3" id="7_272bh"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ig7tw"]
-radius = 19.026299
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
+texture = ExtResource("5_7mycd")
+texture_region_size = Vector2i(282, 256)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+2:2/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
-radius = 15.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_h2yge"]
-radius = 21.954498
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
-size = Vector2(10, 16)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_lquwl"]
-radius = 5.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1bvp3"]
-radius = 36.013885
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7mycd"]
-radius = 33.06055
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_272bh"]
-radius = 15.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5vw27"]
-radius = 15.033297
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_kek77"]
-radius = 18.601076
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_4c57u"]
-radius = 31.112698
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_efxa6"]
-radius = 12.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_dg77c"]
-radius = 19.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ycdy4"]
-radius = 12.0415945
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_w48qg"]
-radius = 11.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_vivmo"]
-radius = 12.0415945
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_2cqfq"]
-radius = 14.035668
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_yaehf"]
-radius = 16.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_074og"]
-radius = 28.284271
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_cegan"]
-radius = 12.0415945
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_82xsv"]
-radius = 12.0415945
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_getpj"]
-radius = 32.06244
+[sub_resource type="TileSet" id="TileSet_kek77"]
+tile_size = Vector2i(282, 256)
+sources/0 = SubResource("TileSetAtlasSource_272bh")
 
 [node name="Node" type="Node2D" unique_id=1993528689]
 script = ExtResource("1_h2yge")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1635082391]
-custom_minimum_size = Vector2(1906, 932)
-offset_right = 1152.0
-offset_bottom = 648.0
-texture = ExtResource("1_ig7tw")
-expand_mode = 1
-
-[node name="MapColliders" type="StaticBody2D" parent="." unique_id=1200638048]
-top_level = true
-
-[node name="Lake" type="StaticBody2D" parent="MapColliders" unique_id=769682226]
-
-[node name="Lake" type="CollisionPolygon2D" parent="MapColliders/Lake" unique_id=1906395026]
-polygon = PackedVector2Array(951, 0, 951, 15, 950, 33, 955, 36, 958, 49, 953, 55, 949, 68, 934, 75, 930, 92, 935, 103, 949, 116, 967, 126, 976, 144, 989, 157, 1015, 156, 1014, 153, 1009, 158, 1025, 158, 1038, 153, 1050, 147, 1061, 142, 1067, 133, 1070, 124, 1083, 123, 1096, 120, 1106, 113, 1110, 102, 1115, 92, 1121, 83, 1127, 81, 1132, 69, 1130, 58, 1131, 44, 1130, 31, 1122, 25, 1115, 19, 1103, 14, 1093, 7, 1092, -1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapColliders" unique_id=1044388818]
-position = Vector2(579, 326)
-shape = SubResource("CircleShape2D_ig7tw")
-
-[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="MapColliders" unique_id=215291840]
-position = Vector2(112.380775, 446.17825)
-scale = Vector2(1.0048077, 1.0072464)
-polygon = PackedVector2Array(-11, -30, 1, -59, 16, -66, 38, -59, 55, -37, 59, -24, 71, -17, 82, -4, 77, 10, 64, 22, 45, 47, 22, 62, -11, 59, -17, 67, -27, 72, -40, 70, -49, 61, -47, 50, -41, 43, -49, 39, -62, 34, -73, 19, -74, 4, -69, -6, -63, -22, -48, -42, -35, -45, -14, -31)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="MapColliders" unique_id=791576048]
-position = Vector2(-1, 3)
-polygon = PackedVector2Array(3, 364, 22, 359, 33, 337, 52, 323, 70, 321, 75, 328, 83, 333, 90, 330, 91, 323, 97, 321, 104, 321, 111, 313, 114, 307, 114, 303, 119, 301, 123, 293, 119, 288, 118, 281, 107, 263, 103, 262, 101, 253, 97, 249, 110, 236, 121, 221, 127, 206, 120, 189, 110, 171, 97, 160, 80, 148, 69, 155, 65, 164, 55, 177, 47, 195, 39, 209, 37, 222, 39, 232, 30, 241, 24, 241, 12, 230, 3, 225)
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="MapColliders" unique_id=1920009082]
-position = Vector2(248, 308)
-shape = SubResource("CircleShape2D_0xm2m")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="MapColliders" unique_id=1559009338]
-position = Vector2(143, 183)
-shape = SubResource("CircleShape2D_h2yge")
-
-[node name="CollisionShape2D5" type="CollisionPolygon2D" parent="MapColliders" unique_id=937532678]
-position = Vector2(401, 539)
-polygon = PackedVector2Array(-12, -6, -8, -17, -1, -22, 7, -22, 14, -16, 19, -8, 19, -1, 18, 5, 14, 11, 11, 15, 4, 16, 1, 20, -3, 17, -8, 18, -13, 13, -17, 13, -20, 5, -18, -3, -13, -5)
-
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="MapColliders" unique_id=1939048992]
-polygon = PackedVector2Array(350, 508, 351, 503, 357, 498, 363, 499, 368, 500, 371, 504, 376, 509, 379, 516, 375, 523, 367, 528, 356, 527, 350, 524, 348, 518, 348, 512)
-
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="MapColliders" unique_id=1292280798]
-position = Vector2(386, 507)
-shape = SubResource("RectangleShape2D_1bvp3")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="MapColliders" unique_id=2075625331]
-position = Vector2(396, 512)
-shape = SubResource("CircleShape2D_lquwl")
-
-[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="MapColliders" unique_id=1643100199]
-position = Vector2(1, 0)
-polygon = PackedVector2Array(517, 646, 523, 624, 534, 608, 544, 602, 558, 601, 572, 608, 580, 619, 589, 612, 596, 607, 606, 603, 618, 601, 624, 595, 627, 584, 632, 574, 645, 564, 658, 565, 662, 572, 670, 580, 676, 589, 685, 595, 698, 593, 709, 592, 712, 576, 715, 565, 719, 555, 724, 544, 735, 536, 750, 541, 761, 544, 772, 553, 777, 567, 787, 572, 798, 582, 808, 571, 816, 565, 824, 566, 837, 564, 848, 570, 858, 584, 868, 595, 871, 608, 876, 625, 871, 635, 865, 645, 860, 647, 824, 648, 758, 650)
-
-[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="MapColliders" unique_id=1107654150]
-polygon = PackedVector2Array(304, 136, 303, 129, 307, 126, 308, 121, 315, 115, 317, 110, 314, 109, 317, 104, 321, 99, 326, 96, 334, 95, 341, 92, 347, 95, 351, 98, 354, 103, 357, 100, 359, 103, 366, 108, 366, 115, 367, 118, 373, 123, 375, 125, 375, 131, 380, 135, 381, 142, 377, 148, 378, 152, 374, 157, 372, 160, 366, 168, 360, 170, 353, 172, 351, 177, 344, 179, 333, 180, 333, 170, 326, 170, 318, 170, 313, 166, 308, 161, 305, 152, 303, 148, 300, 143)
-
-[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="MapColliders" unique_id=78260526]
-position = Vector2(-1.5884323, -1.9073486e-06)
-scale = Vector2(1.0083956, 0.99999994)
-polygon = PackedVector2Array(22, -1, 21, 12, 22, 19, 15, 21, 17, 23, 17, 26, 16, 30, 18, 34, 19, 34, 19, 38, 25, 42, 22, 47, 23, 50, 29, 51, 27, 53, 29, 56, 30, 58, 34, 59, 37, 60, 40, 62, 43, 64, 48, 64, 51, 66, 49, 68, 48, 72, 52, 71, 55, 72, 56, 74, 58, 76, 60, 74, 64, 73, 67, 72, 68, 68, 74, 71, 78, 76, 86, 78, 91, 77, 98, 75, 103, 77, 104, 72, 106, 69, 108, 73, 111, 70, 114, 72, 117, 68, 119, 70, 123, 70, 127, 71, 128, 65, 134, 68, 140, 67, 141, 61, 146, 60, 146, 55, 148, 51, 146, 47, 144, 41, 147, 35, 149, 31, 145, 28, 146, 23, 143, 22, 143, 16, 140, 11, 134, 10, 134, 6, 131, 1)
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="MapColliders" unique_id=115227273]
-position = Vector2(163, 264)
-shape = SubResource("CircleShape2D_1bvp3")
-
-[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="MapColliders" unique_id=660588671]
-polygon = PackedVector2Array(1, 200, 6, 196, 8, 198, 11, 195, 15, 196, 19, 197, 19, 193, 22, 192, 25, 189, 26, 186, 28, 184, 29, 180, 29, 175, 25, 174, 28, 169, 30, 170, 32, 171, 33, 168, 41, 162, 45, 155, 46, 148, 49, 144, 48, 141, 48, 135, 44, 130, 41, 127, 44, 125, 42, 121, 38, 119, 36, 117, 37, 115, 35, 109, 28, 107, 28, 102, 25, 99, 23, 101, 20, 101, 18, 97, 15, 96, 13, 99, 10, 94, 6, 98, 1, 97)
-
-[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="MapColliders" unique_id=73168757]
-polygon = PackedVector2Array(1, 562, 21, 563, 27, 569, 51, 554, 64, 558, 76, 566, 83, 574, 79, 577, 86, 582, 88, 580, 91, 584, 91, 588, 94, 591, 93, 596, 98, 601, 99, 605, 101, 615, 101, 620, 97, 625, 99, 633, 92, 633, 93, 639, 90, 642, 81, 648, 1, 650)
-
-[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="MapColliders" unique_id=2106493630]
-polygon = PackedVector2Array(1, 457, 8, 461, 12, 464, 10, 469, 15, 469, 20, 472, 17, 475, 19, 478, 27, 480, 26, 485, 30, 490, 30, 497, 34, 497, 34, 505, 36, 512, 35, 520, 32, 524, 29, 530, 25, 539, 19, 550, 14, 556, 0, 562)
-
-[node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="MapColliders" unique_id=133204763]
-polygon = PackedVector2Array(168, 621, 155, 628, 154, 633, 146, 639, 140, 635, 139, 628, 135, 626, 132, 629, 126, 625, 120, 621, 115, 614, 109, 604, 112, 596, 114, 587, 119, 578, 122, 566, 127, 562, 133, 553, 136, 557, 147, 553, 156, 559, 164, 562, 176, 560, 185, 554, 181, 542, 184, 540, 184, 534, 187, 528, 189, 523, 193, 514, 199, 506, 206, 499, 210, 498, 222, 497, 230, 499, 236, 507, 240, 510, 245, 516, 248, 521, 254, 525, 261, 526, 268, 527, 274, 524, 277, 531, 279, 533, 283, 533, 286, 536, 289, 536, 291, 542, 290, 544, 297, 547, 300, 554, 302, 559, 304, 568, 307, 582, 302, 586, 301, 591, 300, 595, 298, 597, 296, 599, 292, 602, 287, 606, 279, 608, 280, 612, 277, 615, 261, 615, 260, 606, 248, 606, 239, 596, 235, 587, 230, 580, 231, 591, 233, 603, 229, 611, 219, 614, 220, 617, 211, 618, 202, 620, 210, 629, 220, 638, 224, 647, 153, 649)
-
-[node name="CollisionPolygon2D11" type="CollisionShape2D" parent="MapColliders" unique_id=678578113]
-position = Vector2(370, 620)
-shape = SubResource("CircleShape2D_7mycd")
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="MapColliders" unique_id=1247219877]
-position = Vector2(1115, 164)
-shape = SubResource("CircleShape2D_272bh")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="MapColliders" unique_id=1795116700]
-position = Vector2(376, 411)
-shape = SubResource("CircleShape2D_5vw27")
-
-[node name="CollisionShape2D11" type="CollisionShape2D" parent="MapColliders" unique_id=807142939]
-position = Vector2(476, 272)
-shape = SubResource("CircleShape2D_kek77")
-
-[node name="CollisionShape2D12" type="CollisionShape2D" parent="MapColliders" unique_id=297826373]
-position = Vector2(706, 341)
-shape = SubResource("CircleShape2D_4c57u")
-
-[node name="CollisionShape2D13" type="CollisionShape2D" parent="MapColliders" unique_id=303375749]
-position = Vector2(913, 418)
-shape = SubResource("CircleShape2D_efxa6")
-
-[node name="CollisionShape2D14" type="CollisionShape2D" parent="MapColliders" unique_id=1942502733]
-position = Vector2(796, 344)
-shape = SubResource("CircleShape2D_dg77c")
-
-[node name="CollisionShape2D15" type="CollisionShape2D" parent="MapColliders" unique_id=315719374]
-position = Vector2(403, 82)
-shape = SubResource("CircleShape2D_ycdy4")
-
-[node name="CollisionShape2D16" type="CollisionShape2D" parent="MapColliders" unique_id=2073452955]
-position = Vector2(201, 65)
-shape = SubResource("CircleShape2D_w48qg")
-
-[node name="CollisionShape2D17" type="CollisionShape2D" parent="MapColliders" unique_id=853214474]
-position = Vector2(496, 72)
-shape = SubResource("CircleShape2D_vivmo")
-
-[node name="CollisionShape2D18" type="CollisionShape2D" parent="MapColliders" unique_id=1148006637]
-position = Vector2(896, 605)
-shape = SubResource("CircleShape2D_2cqfq")
-
-[node name="CollisionShape2D19" type="CollisionShape2D" parent="MapColliders" unique_id=254732715]
-position = Vector2(954, 403)
-shape = SubResource("CircleShape2D_yaehf")
-
-[node name="CollisionShape2D20" type="CollisionShape2D" parent="MapColliders" unique_id=253822389]
-position = Vector2(551, 227)
-shape = SubResource("CircleShape2D_074og")
-
-[node name="CollisionShape2D21" type="CollisionShape2D" parent="MapColliders" unique_id=314190199]
-position = Vector2(991, 530)
-shape = SubResource("CircleShape2D_cegan")
-
-[node name="CollisionShape2D22" type="CollisionShape2D" parent="MapColliders" unique_id=396004056]
-position = Vector2(970, 463)
-shape = SubResource("CircleShape2D_82xsv")
-
-[node name="CollisionPolygon2D12" type="CollisionPolygon2D" parent="MapColliders" unique_id=428548618]
-polygon = PackedVector2Array(518, 414, 517, 410, 522, 411, 524, 406, 526, 400, 528, 399, 532, 400, 536, 397, 539, 398, 543, 397, 545, 399, 547, 403, 550, 403, 553, 405, 555, 407, 554, 410, 555, 413, 555, 418, 555, 422, 556, 426, 557, 429, 555, 430, 555, 433, 555, 436, 552, 438, 555, 442, 552, 445, 547, 447, 541, 448, 536, 448, 530, 445, 526, 441, 525, 436, 526, 434, 523, 433, 521, 430, 516, 429, 516, 425, 517, 420, 518, 417)
-
-[node name="CollisionShape2D23" type="CollisionPolygon2D" parent="MapColliders" unique_id=246287396]
-position = Vector2(1093, 189)
-polygon = PackedVector2Array(-222, -188, -223, -186, -226, -185, -226, -183, -227, -179, -233, -177, -233, -172, -231, -170, -235, -169, -235, -166, -236, -163, -238, -160, -236, -157, -234, -158, -232, -156, -233, -154, -232, -152, -229, -153, -226, -152, -223, -152, -220, -150, -221, -148, -220, -144, -218, -142, -217, -141, -214, -139, -211, -139, -207, -137, -205, -138, -202, -138, -200, -136, -194, -136, -190, -139, -189, -143, -184, -148, -186, -152, -182, -157, -185, -160, -184, -164, -188, -170, -191, -170, -197, -171, -198, -176, -199, -180, -200, -181, -200, -186, -201, -188, -201, -188)
-
-[node name="CollisionPolygon2D13" type="CollisionPolygon2D" parent="MapColliders" unique_id=1777232662]
-polygon = PackedVector2Array(1095, 230, 1099, 227, 1104, 228, 1108, 219, 1113, 219, 1119, 214, 1125, 219, 1132, 218, 1142, 223, 1141, 227, 1144, 235, 1142, 240, 1143, 243, 1142, 245, 1140, 246, 1138, 250, 1136, 251, 1134, 254, 1128, 251, 1126, 256, 1122, 255, 1119, 263, 1116, 266, 1114, 270, 1110, 272, 1103, 272, 1095, 273, 1091, 267, 1087, 264, 1089, 261, 1086, 257, 1090, 255, 1086, 251, 1086, 248, 1085, 244, 1085, 241, 1087, 239, 1087, 236, 1089, 235, 1090, 231, 1093, 231, 1093, 231)
+[node name="WorldTerrain" type="TileMap" parent="." unique_id=677614151 node_paths=PackedStringArray("player")]
+z_index = -1
+tile_set = SubResource("TileSet_kek77")
+format = 2
+script = ExtResource("6_272bh")
+player = NodePath("../Player")
 
 [node name="Player" parent="." unique_id=382676730 instance=ExtResource("2_0xm2m")]
-position = Vector2(1295, 684)
+z_index = 1
+
+[node name="CreatureSprite" parent="Player" index="0" unique_id=1431641038]
+z_index = 1
+
+[node name="CollisionShape2D" parent="Player" index="1" unique_id=580621971]
+z_index = 1
+position = Vector2(0, 0)
 
 [node name="Label" type="Label" parent="Player" unique_id=1582742622]
+z_index = 1
 offset_left = -71.0
 offset_top = -175.0
 offset_right = 81.0
@@ -238,17 +57,18 @@ theme_override_colors/font_color = Color(9.666, 18.892, 5.018, 0.973)
 theme_override_fonts/font = ExtResource("4_7mycd")
 theme_override_font_sizes/font_size = 21
 text = "METABOLIC RESERVES"
+metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Player" unique_id=1933389318]
+z_index = 1
 offset_left = -52.0
 offset_top = -150.0
 offset_right = 51.0
 offset_bottom = -123.0
-
-[node name="CollisionShape2D" parent="Player" index="3" unique_id=580621971]
-position = Vector2(0, 0)
+metadata/_edit_use_anchors_ = true
 
 [node name="Label2" type="Label" parent="Player" unique_id=642965452]
+z_index = 1
 offset_left = -75.0
 offset_top = -107.0
 offset_right = 76.0
@@ -256,55 +76,24 @@ offset_bottom = -79.0
 theme_override_fonts/font = ExtResource("4_7mycd")
 theme_override_font_sizes/font_size = 21
 text = "CELLULAR HYDRATION"
+metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar2" type="ProgressBar" parent="Player" unique_id=2084358998]
+z_index = 1
 offset_left = -55.0
 offset_top = -77.0
 offset_right = 52.0
 offset_bottom = -50.0
+metadata/_edit_use_anchors_ = true
 
-[node name="bush" type="Area2D" parent="." unique_id=2031893069]
-script = ExtResource("4_lquwl")
-
-[node name="Sprite2D" type="Sprite2D" parent="bush" unique_id=802921181]
-position = Vector2(850, 742)
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("6_272bh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bush" unique_id=1109469270]
-position = Vector2(848, 742)
-shape = SubResource("CircleShape2D_getpj")
-
-[node name="Timer" type="Timer" parent="bush" unique_id=540010320]
-wait_time = 20.0
-one_shot = true
-
-[node name="bush2" type="Area2D" parent="." unique_id=999433837]
-position = Vector2(-47, -525)
-script = ExtResource("4_lquwl")
-
-[node name="Sprite2D" type="Sprite2D" parent="bush2" unique_id=304039743]
-position = Vector2(850, 742)
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("6_272bh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bush2" unique_id=778649767]
-position = Vector2(848, 742)
-shape = SubResource("CircleShape2D_getpj")
-
-[node name="Timer" type="Timer" parent="bush2" unique_id=693432367]
-wait_time = 20.0
-one_shot = true
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=941299658]
+z_index = -1
+zoom = Vector2(1.5, 1.5)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1841338293]
 stream = ExtResource("7_272bh")
 volume_db = -10.292
 autoplay = true
 parameters/looping = true
-
-[connection signal="body_entered" from="bush" to="bush" method="_on_body_entered"]
-[connection signal="timeout" from="bush/Timer" to="bush" method="_on_timer_timeout"]
-[connection signal="body_entered" from="bush2" to="bush2" method="_on_body_entered"]
-[connection signal="timeout" from="bush2/Timer" to="bush2" method="_on_timer_timeout"]
 
 [editable path="Player"]

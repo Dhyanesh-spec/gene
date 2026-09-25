@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://byydqirtqy1y0" path="res://ChatGPT Image Jun 1, 2026, 11_22_24 AM.png" id="3_uw7jv"]
 [ext_resource type="FontFile" uid="uid://bldb38b7ilmce" path="res://VT323-Regular.ttf" id="4_dtsd6"]
 [ext_resource type="Script" uid="uid://p1m13tmtjttj" path="res://RADAR.gd" id="4_epn36"]
-[ext_resource type="Texture2D" uid="uid://c5ua6pxrbnqgu" path="res://play.png" id="6_ecarl"]
+[ext_resource type="Script" uid="uid://cd6i0e2g6rfcr" path="res://chat_bot.gd" id="8_q077n"]
 [ext_resource type="AudioStream" uid="uid://dsq05o0een7mk" path="res://Neon Relay.mp3" id="8_vu75y"]
+[ext_resource type="Texture2D" uid="uid://kq76m0o6qbxb" path="res://doc.jpeg" id="9_q077n"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ecarl"]
 load_path = "res://.godot/imported/base_horse.png-49fd239c32d393e603228f6e3ca99bf6.ctex"
@@ -17,6 +18,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -7.0
+offset_right = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6kv01")
@@ -27,9 +30,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
+offset_left = 12.0
 offset_top = 9.0
-offset_right = 16.0
+offset_right = 12.0
 offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -325,26 +328,65 @@ layout_mode = 2
 [node name="genelist" type="VBoxContainer" parent="Genes/Scroller" unique_id=1018997211]
 layout_mode = 2
 
-[node name="Play" type="TextureButton" parent="." unique_id=1180529946]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.721
-anchor_top = 0.84700006
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 0.40795898
-offset_top = 0.14398193
-offset_right = -23.0
-offset_bottom = -16.0
-texture_normal = ExtResource("6_ecarl")
-ignore_texture_size = true
-stretch_mode = 6
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=734276822]
 stream = ExtResource("8_vu75y")
 volume_db = -14.675
 autoplay = true
 parameters/looping = false
 
+[node name="ProfessorChat" type="Control" parent="." unique_id=67337855]
+anchors_preset = 0
+script = ExtResource("8_q077n")
+
+[node name="ProfessorButton" type="TextureButton" parent="ProfessorChat" unique_id=1458197259]
+layout_mode = 0
+offset_left = 107.0
+offset_right = 288.0
+offset_bottom = 200.0
+
+[node name="Portrait" type="TextureRect" parent="ProfessorChat/ProfessorButton" unique_id=702126647]
+layout_mode = 0
+offset_left = 892.0
+offset_top = 499.0
+offset_right = 1050.0
+offset_bottom = 649.0
+texture = ExtResource("9_q077n")
+expand_mode = 1
+
+[node name="ChatPanel" type="PanelContainer" parent="ProfessorChat" unique_id=966093623]
+layout_mode = 0
+offset_left = 826.0
+offset_top = 478.0
+offset_right = 1025.0
+offset_bottom = 648.0
+
+[node name="MainVBox" type="VBoxContainer" parent="ProfessorChat/ChatPanel" unique_id=735348981]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="ProfessorChat/ChatPanel/MainVBox" unique_id=1483050393]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ProfessorChat/ChatPanel/MainVBox/Header" unique_id=633158429]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="ProfessorChat/ChatPanel/MainVBox/Header" unique_id=1752203807]
+layout_mode = 2
+text = "close"
+
+[node name="ChatHistory" type="RichTextLabel" parent="ProfessorChat/ChatPanel/MainVBox" unique_id=1766880873]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="InputRow" type="HBoxContainer" parent="ProfessorChat/ChatPanel/MainVBox" unique_id=421631518]
+layout_mode = 2
+
+[node name="InputBox" type="LineEdit" parent="ProfessorChat/ChatPanel/MainVBox/InputRow" unique_id=2056619961]
+layout_mode = 2
+
+[node name="SendButton" type="Button" parent="ProfessorChat/ChatPanel/MainVBox/InputRow" unique_id=613306168]
+layout_mode = 2
+text = "Send"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="ProfessorChat" unique_id=1078423040]
+
 [connection signal="pressed" from="Console/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]

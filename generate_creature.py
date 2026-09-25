@@ -3,7 +3,7 @@ from huggingface_hub import InferenceClient
 from rembg import remove
 import sys
 
-HF_TOKEN = "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"
+HF_TOKEN = "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"
 
 prompt = sys.argv[1]
 
