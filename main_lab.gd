@@ -3,7 +3,7 @@ extends Control
 # Reference interaction buttons
 
 @onready var button_splice: TextureButton = $main/ButtonSplice
-@onready var desk_button: Button = $Button
+@onready var desk_button: TextureButton = $Button
 
 func _ready() -> void:
 	# Hide all interaction buttons when the scene starts

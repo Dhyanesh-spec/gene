@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://jtwrspeacuif" path="res://Gemini_Generated_Image_ngitlcngitlcngit-removebg-preview.png" id="6_djt2c"]
 [ext_resource type="Texture2D" uid="uid://boinc4u3irtto" path="res://Gemini_Generated_Image_unadu2unadu2unad-removebg-preview.png" id="6_r1ilw"]
 [ext_resource type="Script" uid="uid://bf87bv7vxh780" path="res://professor.gd" id="8_31pcy"]
+[ext_resource type="Texture2D" uid="uid://cr4pgugdwmpod" path="res://Gemini_Generated_Image_8pge298pge298pge-removebg-preview.png" id="8_fts1j"]
 [ext_resource type="PackedScene" uid="uid://c8b7nyxj2igfi" path="res://player.tscn" id="9_cjcec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjcec"]
@@ -108,16 +109,17 @@ polygon = PackedVector2Array(942, 16, 942, 67, 939, 104, 923, 117, 925, 148, 928
 position = Vector2(271, 111.5)
 shape = SubResource("RectangleShape2D_cjcec")
 
-[node name="Button" type="Button" parent="." unique_id=584484700]
+[node name="Button" type="TextureButton" parent="." unique_id=1784105622]
 visible = false
 z_index = 10
 layout_mode = 0
-offset_left = 221.0
-offset_top = 87.0
-offset_right = 356.0
-offset_bottom = 192.0
-text = "LINKER
-"
+offset_left = 219.0
+offset_top = 41.0
+offset_right = 404.0
+offset_bottom = 146.0
+texture_normal = ExtResource("8_fts1j")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="professor" type="Control" parent="." unique_id=1270938712]
 anchors_preset = 0
