@@ -4,34 +4,49 @@ from typing import Dict, List
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from huggingface_hub import AsyncInferenceClient
+from openai import AsyncOpenAI
 
 
 # ============================================================
-# CONFIG
+# CLOUDFLARE CONFIG
 # ============================================================
 
-HF_TOKEN = "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"
+# PUT YOUR CLOUDFLARE API TOKEN HERE
+CLOUDFLARE_API_TOKEN = "cfut_heEol3rzwKe9XJpvuN5PomcybYLyd0DEuvoG74AO521ae2a4"
+
+# PUT YOUR CLOUDFLARE ACCOUNT ID HERE
+CLOUDFLARE_ACCOUNT_ID = "a063115e6cd6be8c58661930fa5076d4"
+
+
+# Best general-purpose/high-reasoning model currently
+# available through Cloudflare Workers AI.
+MODEL = "@cf/openai/gpt-oss-120b"
 
 
 # ============================================================
-# PROFESSOR PERSONALITY
+# SYSTEM PROMPT
 # ============================================================
 
 SYSTEM_PROMPT = """
-You are the Professor inside Variant Zero, an educational
-genetics laboratory simulation.
+You are Professor, the lead geneticist inside Variant Zero,
+an educational genetics laboratory simulation.
 
-Your job is to help the player understand biology and genetics
-while they perform experiments inside the laboratory.
+Your personality:
+- Serious
+- Calm
+- Intelligent
+- Slightly intimidating
+- Professional
+- Patient when explaining difficult concepts
 
-You teach concepts such as:
+You are teaching the player about genetics through the laboratory.
 
+You can explain:
 - DNA
 - Genes
 - Alleles
 - Traits
-- Dominant and recessive inheritance
+- Dominant and recessive traits
 - Mutations
 - Genetic variation
 - Natural selection
@@ -41,55 +56,53 @@ You teach concepts such as:
 - Phenotypes
 - Genotypes
 
-PERSONALITY:
-
-You are a serious laboratory professor.
-
-You are intelligent, calm, slightly intimidating,
-but genuinely interested in teaching the student.
-
-You should sound like a professor speaking to a researcher,
-not like a generic AI assistant.
-
-TEACHING STYLE:
-
-Do not simply dump an answer.
-
-Prefer:
-1. Explain the concept.
-2. Connect it to the player's current experiment.
-3. Ask a small reasoning question when useful.
+Your dialogue should feel like dialogue from a game.
+Keep responses concise unless the player asks for a detailed explanation.
 
 IMPORTANT:
 
-The laboratory game state provided by the backend is the
-source of truth.
+The backend laboratory state is the source of truth.
 
 Never invent:
-- genes
-- traits
-- numerical effects
-- experiment results
-- game mechanics
+- Genes
+- Traits
+- Trait values
+- Numerical effects
+- Mutations
+- Experimental results
+- Game mechanics
+- Laboratory conditions
+- Player actions
 
-If the player asks about something that is not in the
-provided game data, explain the biological concept generally
-and make it clear that it is not currently represented in
-the laboratory.
+If information is not present in the laboratory state,
+say that the information is unavailable.
 
-Keep answers concise enough to fit inside an in-game dialogue
-box.
+When explaining the player's experiment,
+use the CURRENT VARIANT ZERO LABORATORY STATE provided by the backend.
+
+Do not claim that a trait exists unless it appears in the state.
+
+Do not claim that a mutation occurred unless the backend state
+indicates that it occurred.
+
+Do not invent numerical effects.
+
+Stay in character as Professor.
 """
 
 
 # ============================================================
-# APP
+# FASTAPI
 # ============================================================
 
 app = FastAPI(
     title="Variant Zero AI Backend"
 )
 
+
+# ============================================================
+# CORS
+# ============================================================
 
 app.add_middleware(
     CORSMiddleware,
@@ -101,21 +114,20 @@ app.add_middleware(
 
 
 # ============================================================
-# HUGGING FACE CLIENT
+# CLOUDFLARE CLIENT
 # ============================================================
 
-# THIS IS CREATED ONCE WHEN THE SERVER STARTS.
-#
-# It is NOT created for every question.
-# ============================================================
-
-hf_client = AsyncInferenceClient(
-    token=HF_TOKEN
+cloudflare_client = AsyncOpenAI(
+    api_key=CLOUDFLARE_API_TOKEN,
+    base_url=(
+        f"https://api.cloudflare.com/client/v4/accounts/"
+        f"{CLOUDFLARE_ACCOUNT_ID}/ai/v1"
+    )
 )
 
 
 # ============================================================
-# SESSION MEMORY
+# CONVERSATION MEMORY
 # ============================================================
 
 conversations: Dict[str, List[dict]] = {}
@@ -124,73 +136,62 @@ MAX_HISTORY = 20
 
 
 # ============================================================
-# REQUEST MODELS
+# REQUEST / RESPONSE MODELS
 # ============================================================
 
 class ChatRequest(BaseModel):
-
     session_id: str
     message: str
-
-    # Current state of the laboratory.
     context: dict = {}
 
 
 class ChatResponse(BaseModel):
-
     reply: str
 
 
 # ============================================================
-# CHAT ENDPOINT
+# CHAT
 # ============================================================
 
-@app.post(
-    "/chat",
-    response_model=ChatResponse
-)
+@app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
 
     session_id = request.session_id.strip()
     message = request.message.strip()
 
-    if not session_id:
+    # --------------------------------------------------------
+    # Validate request
+    # --------------------------------------------------------
 
+    if not session_id:
         raise HTTPException(
             status_code=400,
             detail="Missing session_id."
         )
 
-
     if not message:
-
         raise HTTPException(
             status_code=400,
             detail="Message is empty."
         )
 
-
     # --------------------------------------------------------
-    # CREATE SESSION
+    # Create conversation
     # --------------------------------------------------------
 
     if session_id not in conversations:
 
         conversations[session_id] = [
-
             {
                 "role": "system",
                 "content": SYSTEM_PROMPT
             }
-
         ]
-
 
     history = conversations[session_id]
 
-
     # --------------------------------------------------------
-    # CURRENT LAB STATE
+    # Current laboratory state
     # --------------------------------------------------------
 
     context = request.context
@@ -225,153 +226,127 @@ Thermoregulation:
 Genome instability level:
 {context.get("instability_level", 0)}
 
-Use this information when answering questions about
-the player's current experiment.
+Use this information when answering questions
+about the player's current experiment.
+
+This state is authoritative.
+
+Do not invent values that are not present here.
 """
 
-
     # --------------------------------------------------------
-    # ADD CURRENT LAB STATE
+    # Build messages
     # --------------------------------------------------------
-
-    # We don't permanently save this as conversation history.
-    # It represents the CURRENT state of the lab.
 
     messages = [
-
         history[0],
-
         {
             "role": "system",
             "content": context_message
         }
-
     ]
 
     messages.extend(history[1:])
 
+    messages.append(
+        {
+            "role": "user",
+            "content": message
+        }
+    )
 
     # --------------------------------------------------------
-    # ADD PLAYER QUESTION
-    # --------------------------------------------------------
-
-    messages.append({
-
-        "role": "user",
-        "content": message
-
-    })
-
-
-    # --------------------------------------------------------
-    # LIMIT CONVERSATION LENGTH
+    # Limit history
     # --------------------------------------------------------
 
     if len(messages) > MAX_HISTORY + 2:
 
-        messages = [
-
-            messages[0],
-            messages[1]
-
-        ] + messages[-MAX_HISTORY:]
-
+        messages = (
+            [messages[0], messages[1]]
+            + messages[-MAX_HISTORY:]
+        )
 
     # --------------------------------------------------------
-    # ASK HUGGING FACE
+    # Cloudflare AI request
     # --------------------------------------------------------
 
     try:
 
-        response = await hf_client.chat.completions.create(
-
+        response = await cloudflare_client.chat.completions.create(
             model=MODEL,
-
             messages=messages,
 
+            # Professor should sound natural but controlled.
             temperature=0.6,
 
+            # Enough for game dialogue.
             max_tokens=300,
 
             stream=False
-
         )
 
     except Exception as error:
 
-        print("Hugging Face error:", error)
+        print("Cloudflare AI error:")
+        print(error)
 
         raise HTTPException(
-
             status_code=502,
-
             detail="AI service failed."
-
         )
 
+    # --------------------------------------------------------
+    # Validate response
+    # --------------------------------------------------------
 
     if not response.choices:
 
         raise HTTPException(
-
             status_code=502,
-
             detail="AI returned no response."
-
         )
 
-
     reply = response.choices[0].message.content
-
 
     if not reply:
 
         raise HTTPException(
-
             status_code=502,
-
             detail="AI returned an empty response."
-
         )
 
-
     # --------------------------------------------------------
-    # SAVE CONVERSATION
+    # Save conversation
     # --------------------------------------------------------
 
-    history.append({
+    history.append(
+        {
+            "role": "user",
+            "content": message
+        }
+    )
 
-        "role": "user",
+    history.append(
+        {
+            "role": "assistant",
+            "content": reply
+        }
+    )
 
-        "content": message
-
-    })
-
-
-    history.append({
-
-        "role": "assistant",
-
-        "content": reply
-
-    })
-
-
-    # Keep memory manageable.
-
+    # Keep conversation memory under control.
     if len(history) > MAX_HISTORY + 1:
 
-        conversations[session_id] = [
+        conversations[session_id] = (
+            [history[0]]
+            + history[-MAX_HISTORY:]
+        )
 
-            history[0]
-
-        ] + history[-MAX_HISTORY:]
-
+    # --------------------------------------------------------
+    # Return
+    # --------------------------------------------------------
 
     return ChatResponse(
-
         reply=reply
-
     )
 
 
@@ -383,16 +358,14 @@ the player's current experiment.
 async def health():
 
     return {
-
         "status": "online",
-
+        "provider": "Cloudflare Workers AI",
         "model": MODEL
-
     }
 
 
 # ============================================================
-# RESET CHAT
+# RESET SESSION
 # ============================================================
 
 @app.post("/reset/{session_id}")
@@ -404,7 +377,5 @@ async def reset_session(session_id: str):
     )
 
     return {
-
         "status": "reset"
-
     }

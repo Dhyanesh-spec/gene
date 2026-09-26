@@ -4,7 +4,7 @@ func _ready() -> void:
 	$MenuMusic.play()
 
 func _on_play_button_pressed() -> void:
-	var scene_path = "res://lab.tscn"
+	var scene_path = "res://main_lab.tscn"
 
 	print("Exists:", FileAccess.file_exists(scene_path))
 

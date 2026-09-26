@@ -10,7 +10,7 @@ from rembg import remove
 # Cloudflare Workers AI configuration
 # ============================================================
 CLOUDFLARE_ACCOUNT_ID = "b8710c114f7cade07356297ace090d71"
-CLOUDFLARE_API_TOKEN = "cfut_TJ8yhntP3sgcZqsIvy6jG1SA9wOryRpOsNUCtX6J8e3a3b46"
+CLOUDFLARE_API_TOKEN = "cfut_kqxVvD8o1y0SpYmcaYNyoeqCiUxdvdCJIOy5xzxf397ea90c"
 
 MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 

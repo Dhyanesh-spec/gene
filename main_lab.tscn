@@ -1,0 +1,185 @@
+[gd_scene format=3 uid="uid://dv0ra0h6tok08"]
+
+[ext_resource type="Texture2D" uid="uid://gscl18xfnm4d" path="res://ChatGPT Image Sep 25, 2026, 07_29_57 PM.png" id="1_osert"]
+[ext_resource type="Script" uid="uid://dqs1if6wd1ldc" path="res://main_lab.gd" id="1_rsf06"]
+[ext_resource type="Texture2D" uid="uid://deyqkv80s6ju" path="res://desk-removebg-preview.png" id="2_r1ilw"]
+[ext_resource type="Texture2D" uid="uid://dmf8r2liyvujk" path="res://gene-splice-removebg-preview.png" id="3_djt2c"]
+[ext_resource type="Texture2D" uid="uid://cmh34mk0yr5q" path="res://lap-removebg-preview.png" id="4_rsf06"]
+[ext_resource type="Texture2D" uid="uid://w44c4qyfc5eo" path="res://ChatGPT_Image_Sep_22__2026__10_35_22_AM-removebg-preview.png" id="5_cjcec"]
+[ext_resource type="Texture2D" uid="uid://jtwrspeacuif" path="res://Gemini_Generated_Image_ngitlcngitlcngit-removebg-preview.png" id="6_djt2c"]
+[ext_resource type="Texture2D" uid="uid://boinc4u3irtto" path="res://Gemini_Generated_Image_unadu2unadu2unad-removebg-preview.png" id="6_r1ilw"]
+[ext_resource type="Script" uid="uid://bf87bv7vxh780" path="res://professor.gd" id="8_31pcy"]
+[ext_resource type="PackedScene" uid="uid://c8b7nyxj2igfi" path="res://player.tscn" id="9_cjcec"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjcec"]
+size = Vector2(464, 173)
+
+[node name="Lab" type="Control" unique_id=1686345425]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_rsf06")
+
+[node name="main" type="TextureRect" parent="." unique_id=1414113033]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 646.0
+texture = ExtResource("1_osert")
+expand_mode = 1
+
+[node name="desk" type="TextureRect" parent="main" unique_id=1960843298]
+layout_mode = 0
+offset_left = -9.0
+offset_top = 376.0
+offset_right = 439.0
+offset_bottom = 607.0
+texture = ExtResource("2_r1ilw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StaticBody2D" type="StaticBody2D" parent="main/desk" unique_id=1081699312]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="main/desk/StaticBody2D" unique_id=1255455003]
+polygon = PackedVector2Array(390, 216, 118, 218, 114, 98, 54, 95, 59, 26, 80, 21, 102, 24, 110, 36, 127, 37, 158, 13, 171, 18, 235, 20, 248, 21, 246, 51, 306, 46, 378, 45, 388, 48, 389, 204)
+
+[node name="gene-splice" type="TextureRect" parent="main" unique_id=2081881000]
+layout_mode = 0
+offset_left = 638.0
+offset_top = 263.0
+offset_right = 1111.0
+offset_bottom = 531.0
+texture = ExtResource("3_djt2c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StaticBody2D" type="StaticBody2D" parent="main/gene-splice" unique_id=413095228]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="main/gene-splice/StaticBody2D" unique_id=173860509]
+polygon = PackedVector2Array(113, 2, 106, 28, 83, 51, 84, 109, 85, 239, 102, 252, 182, 256, 394, 255, 406, 228, 409, 11, 379, -5)
+
+[node name="lap" type="TextureRect" parent="main" unique_id=131633217]
+layout_mode = 0
+offset_left = 162.0
+offset_top = -15.0
+offset_right = 501.0
+offset_bottom = 265.0
+texture = ExtResource("4_rsf06")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StaticBody2D" type="StaticBody2D" parent="main/lap" unique_id=888090343]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="main/lap/StaticBody2D" unique_id=416246018]
+polygon = PackedVector2Array(-106, 206, -54, 206, -55, 170, -5, 167, -2, 196, 3, 205, 57, 206, 62, 190, 106, 193, 122, 215, 154, 226, 177, 221, 184, 198, 229, 195, 230, 203, 289, 203, 294, 192, 335, 191, 335, 45, -62, 43, -119, 94)
+
+[node name="ButtonSplice" type="TextureButton" parent="main" unique_id=394752721]
+visible = false
+layout_mode = 0
+offset_left = 718.0
+offset_top = 257.0
+offset_right = 1079.0
+offset_bottom = 388.0
+texture_normal = ExtResource("6_r1ilw")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="splice" type="Area2D" parent="." unique_id=1740598078]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="splice" unique_id=141566561]
+polygon = PackedVector2Array(747, 265, 743, 292, 722, 310, 720, 501, 744, 521, 1048, 518, 1050, 271, 1014, 254)
+
+[node name="incu" type="Area2D" parent="." unique_id=1354980415]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="incu" unique_id=1930025074]
+polygon = PackedVector2Array(941, 18, 936, 104, 916, 123, 922, 163, 943, 197, 1000, 219, 1103, 189, 1100, 94, 1081, 15, 1070, 8)
+
+[node name="player" parent="." unique_id=851305841 instance=ExtResource("9_cjcec")]
+z_index = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1806981115]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=18982635]
+polygon = PackedVector2Array(942, 16, 942, 67, 939, 104, 923, 117, 925, 148, 928, 161, 937, 173, 949, 199, 1006, 213, 1048, 209, 1103, 190, 1103, 102, 1082, 81, 1084, 26, 1073, 12)
+
+[node name="deskZone" type="Area2D" parent="." unique_id=2079831087]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deskZone" unique_id=821217474]
+position = Vector2(271, 111.5)
+shape = SubResource("RectangleShape2D_cjcec")
+
+[node name="Button" type="Button" parent="." unique_id=584484700]
+visible = false
+z_index = 10
+layout_mode = 0
+offset_left = 221.0
+offset_top = 87.0
+offset_right = 356.0
+offset_bottom = 192.0
+text = "LINKER
+"
+
+[node name="professor" type="Control" parent="." unique_id=1270938712]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_31pcy")
+
+[node name="buttonProfessor" type="TextureButton" parent="professor" unique_id=337758498]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 354.0
+offset_right = 534.0
+offset_bottom = 432.0
+texture_normal = ExtResource("6_djt2c")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="professor/buttonProfessor" unique_id=2004850133]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_left = 23.0
+offset_top = 40.0
+offset_right = 135.0
+offset_bottom = 236.0
+texture = ExtResource("5_cjcec")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="professor" unique_id=1059973516]
+layout_mode = 0
+offset_left = 373.0
+offset_top = 285.0
+offset_right = 514.0
+offset_bottom = 374.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="professor/PanelContainer" unique_id=9679873]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="professor/PanelContainer/VBoxContainer" unique_id=1675978187]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="professor/PanelContainer/VBoxContainer/ScrollContainer" unique_id=1116497604]
+custom_minimum_size = Vector2(170, 50)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="professor/PanelContainer/VBoxContainer" unique_id=1915316766]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="professor/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1869873034]
+layout_mode = 2
+text = "send
+"
+
+[node name="LineEdit" type="LineEdit" parent="professor/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1259365281]
+layout_mode = 2
+
+[connection signal="pressed" from="main/ButtonSplice" to="." method="_on_button_splice_pressed"]
+[connection signal="body_entered" from="splice" to="." method="_on_splice_body_entered"]
+[connection signal="body_exited" from="splice" to="." method="_on_splice_body_exited"]
+[connection signal="body_entered" from="incu" to="." method="_on_incu_body_entered"]
+[connection signal="body_entered" from="deskZone" to="." method="_on_desk_zone_body_entered"]
+[connection signal="body_exited" from="deskZone" to="." method="_on_desk_zone_body_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="professor/buttonProfessor" to="." method="_on_button_professor_pressed"]

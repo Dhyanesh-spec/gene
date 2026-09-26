@@ -460,7 +460,7 @@ func draw_chromosome_bar(rect: Rect2) -> void:
 	)
 
 	# Simple banding makes the bar feel like a genome track.
-	var band_count := clamp(
+	var band_count : int = clamp(
 		int(rect.size.x / 110.0),
 		3,
 		12
